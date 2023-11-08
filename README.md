@@ -1,14 +1,26 @@
 # TKT20019---Keskustelusovellus
-Tietokannat ja web ohjelmointi kurssin projekti
 
- Keskustelusovellus jonka nimi on Porinanurkka.
-Sovellukseen voi kirjautua ja luoda oman tunnukset.
-Etusivulla näkyy kaikki viestiketjut(langat) joita eri käyttäjät ovat julkaisseet.
-Lankoihin voi käyttäjä vastata.
-Käyttäjä pystyy myös itse aloittamaan uuden langan. Käyttäjä pystyy myös itse muokkaamaan aloitus viestiään.
-Ylläpitäjä voi lisätä ja poistaa lankoja.
+Porinanurkka - Keskustelusovellus
 
-Sovelluksen idea on mukailla siis keskustelufoorumeita, joskin ulkomuodoltaan vähän simppelimpi.
-Lankoja ei voi aloittaa anonyyminä joten jos haluat aloittaa langan niin sinun tulee luoda käyttäjä. 
+Toiminnallisuus:
+
+Käyttäjien hallinta ja kirjautuminen:
+Käyttäjä voi rekisteröityä ja luoda oman tunnuksen.
+Käyttäjä voi kirjautua sisään omilla tunnuksillaan.
+
+Etusivu:
+Näyttää kaikki viestiketjut (langat), jotka eri käyttäjät ovat julkaisseet.
+
+Langat:
+Käyttäjä voi lukea lankoja ja vastata niihin.
+Käyttäjä voi aloittaa uuden langan ja kirjoittaa aloitusviestin.
+Käyttäjä voi muokata oman langan aloitusviestiään.
+
+Ylläpitäjän toiminnot:
+Ylläpitäjä voi lisätä uusia lankoja.
+Ylläpitäjä voi poistaa lankoja tarvittaessa.
+
+Anonyymit langan aloitukset:
+Lankoja ei voi aloittaa anonyyminä, vaan käyttäjän tulee luoda tunnus.
 
  
