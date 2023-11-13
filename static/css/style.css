@@ -10,24 +10,11 @@ body {
     flex: 1;
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 15px;
-}
-
 .porina-nurkka {
     color: white;
 }
 
-.navbar a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    margin: 0 10px;
-}
+
 
 .makeNewThread {
     margin: 20px;
@@ -50,12 +37,5 @@ body {
     padding: 15px;
     border: 1px solid #ccc;
     text-align: center;
-}
-
-.footer {
-    text-align: center;
-    background-color: #333;
-    color: white;
-    padding: 10px;
 }
 

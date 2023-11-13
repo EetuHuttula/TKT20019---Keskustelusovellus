@@ -1,0 +1,30 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    padding: 15px;
+}
+.footer {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+.navbar h2 {
+    text-align: left;
+    color: white;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    text-align: right;
+    padding: 10px;
+    margin: 0 10px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+    font-size: 1.1em;
+}
