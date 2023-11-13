@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Porinanurkka</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">   
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">  
+       
 </head>
 <body>
     <div class="container">
-        <nav class="navbar">
-            <h2 class="porina-nurkka">Porinanurkka</h2>
-            <a href="#">About</a>
-            <a href="#">Profile</a>
-            <a href="#">Logout/Login</a>
-        </nav>
+
+        {% include 'components/navbar.html' %}
+
         <button class="makeNewThread" type="button">Make a Thread</button>
         <div id="threadBox">
             <div class="smallerThreadBox">
@@ -23,8 +22,6 @@
             </div>
         </div>
     </div>
-    <footer class="footer">
-        <p>MadebyEetu</p>
-    </footer>
+        {% include 'components/footer.html' %}
 </body>
 </html>
