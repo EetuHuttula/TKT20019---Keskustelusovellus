@@ -4,5 +4,11 @@
     <h2 class="porina-nurkka">Porinanurkka</h2>
     <a href="/about">About</a>
     <a href="/profile">Profile</a>
-    <a href="/login">Logout/Login</a>
+    
+    {% if session.username %}
+        <p><span>Logged in as {{ session.username }}</span></p>
+        <a href="/logout">Kirjaudu ulos</a>
+    {% else %}
+        <a href="/login">Kirjaudu sisään</a>
+    {% endif %}
 </nav>

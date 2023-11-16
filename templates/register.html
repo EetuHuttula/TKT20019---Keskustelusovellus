@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">  
-    <title>Document</title>
+    <title>Register</title>
 </head>
 <body>
+
+    {% include 'components/navbar.html' %}
+
+<h2>Register</h2>
+<form action="/register" method="POST">
+    <p class="name">Username:<br>
+    <input type="text" name="username"></p>
+    
+    <p>password:<br>
+    <input type="password" name="password"></p>
+
+    <input type="submit" value="Register">
+</form>
+
+    {% include 'components/footer.html' %}
     
 </body>
 </html>
