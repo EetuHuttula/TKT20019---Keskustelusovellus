@@ -11,6 +11,10 @@
     padding: 10px;
 }
 
+span {
+    color: white;
+}
+
 .navbar h2 {
     text-align: left;
     color: white;
