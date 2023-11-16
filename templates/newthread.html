@@ -4,34 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Porinanurkka</title>
+    <title>Document</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
-
 </head>
 
 <body>
+    
     <div class="container">
-
         {% include 'components/navbar.html' %}
-        
-        <a href="/newthread">Make a Thread</a>
-        <div id="threadBox">
-            {% for message in messages %}
-            <div class="smallerThreadBox">
-                <h3>Title: {{ message.title }}</h3>
-                <p>Message: {{ message.content }}</p>
-                <p>Message_id: {{ message.id }}</p>   
-        <a href="reply">vastaa</a>
-            </div>
-            {% endfor %}
-        </div>
-        
+    
+        <form action="/send" method="POST">
+            Otsikko: <br>
+            <input type="text" name="title" required>
+            <br>
+            Viesti: <br>
+            <textarea name="content" rows="3" cols="40" required></textarea>
+            <br>
+            <input type="submit" value="Lähetä">
+        </form>
+    
     </div>
-
+    
     {% include 'components/footer.html' %}
-
-
+    
 </body>
 
 </html>
