@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text 
 from os import getenv
@@ -41,8 +41,12 @@ def about():
 def profile():
     return render_template('profile.html')
 
-@app.route("/login")
+@app.route("/login", methods=["POST"])
 def login():
+    username = request.form["username"]
+    password = request.form["password"]
+
+    session["username"] = username
     return render_template('login.html')
 
 if __name__ == '__main__':
