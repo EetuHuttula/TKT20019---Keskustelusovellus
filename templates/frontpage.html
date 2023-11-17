@@ -22,7 +22,7 @@
                 <p>Message: {{ thread.content }}</p>
                 <p>Message_id: {{ thread.user_username }}</p>
                 <p>time {{ thread.creation_date }}</p>
-                <a href="reply">vastaa</a>
+                <a href="{{ url_for('view_thread', thread_id=thread.id) }}">Reply</a>
             </div>
             {% endfor %}
         </div>
