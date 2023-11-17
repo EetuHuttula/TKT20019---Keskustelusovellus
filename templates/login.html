@@ -11,9 +11,9 @@
 </head>
 
 <body>
+    {% include 'components/navbar.html' %}
     <div class="container">
-        {% include 'components/navbar.html' %}
-
+        
         {% if session.username %}
         <p>Logged in as {{ session.username }}</p>
         <a href="/logout">Kirjaudu ulos</a>
