@@ -17,11 +17,11 @@
         
         <a href="/newthread">Make a Thread</a>
         <div id="threadBox">
-            {% for message in messages %}
+            {% for thread in threads %}
             <div class="smallerThreadBox">
-                <h3>Title: {{ message.title }}</h3>
-                <p>Message: {{ message.content }}</p>
-                <p>Message_id: {{ message.user_username }}</p>   
+                <h3>Title: {{ thread.title }}</h3>
+                <p>Message: {{ thread.content }}</p>
+                <p>Message_id: {{ thread.user_username }}</p>   
         <a href="reply">vastaa</a>
             </div>
             {% endfor %}

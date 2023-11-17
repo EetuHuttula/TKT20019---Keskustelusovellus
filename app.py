@@ -14,10 +14,10 @@ app.config["SECRET_KEY"] = getenv("SECRET_KEY")
 
 @app.route("/")
 def index():
-    query = text("SELECT * FROM messages")
+    query = text("SELECT * FROM threads")
     result = db.session.execute(query)
-    messages = result.fetchall()
-    return render_template('frontpage.html', messages=messages)
+    threads = result.fetchall()
+    return render_template('frontpage.html', threads=threads)
 
 @app.route("/newthread")
 def newthread():
@@ -35,7 +35,7 @@ def send():
         return redirect("/login")
 
     # Insert the message into the database with the associated username
-    sql = text("INSERT INTO messages (title, content, user_username) VALUES (:title, :content, :user_username)")
+    sql = text("INSERT INTO threads (title, content, user_username) VALUES (:title, :content, :user_username)")
     db.session.execute(sql, {"title": title, "content": content, "user_username": username})
     db.session.commit()
 

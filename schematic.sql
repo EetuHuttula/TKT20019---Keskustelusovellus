@@ -4,15 +4,21 @@ CREATE TABLE users (
     password TEXT NOT NULL
 );
 
-CREATE TABLE messages (
+CREATE TABLE threads (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_username VARCHAR(255) REFERENCES users(username) NOT NULL
 );
 
-ALTER TABLE messages
-ALTER COLUMN user_id TYPE VARCHAR(255);
+CREATE TABLE posts (
+    id SERIAL PRIMARY KEY,
+    content TEXT NOT NULL,
+    post_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_username VARCHAR(255) REFERENCES users (username) NOT NULL,
+    thread_id INTEGER REFERENCES threads (id) NOT NULL
+);
 
 
 
