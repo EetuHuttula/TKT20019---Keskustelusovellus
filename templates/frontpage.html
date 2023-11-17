@@ -11,22 +11,21 @@
 </head>
 
 <body>
-    <div class="container">
+    {% include 'components/navbar.html' %}
 
-        {% include 'components/navbar.html' %}
-        
+    <div class="container">
         <a href="/newthread">Make a Thread</a>
         <div id="threadBox">
             {% for thread in threads %}
             <div class="smallerThreadBox">
                 <h3>Title: {{ thread.title }}</h3>
                 <p>Message: {{ thread.content }}</p>
-                <p>Message_id: {{ thread.user_username }}</p>   
-        <a href="reply">vastaa</a>
+                <p>Message_id: {{ thread.user_username }}</p>
+                <p>time {{ thread.creation_date }}</p>
+                <a href="reply">vastaa</a>
             </div>
             {% endfor %}
         </div>
-        
     </div>
 
     {% include 'components/footer.html' %}

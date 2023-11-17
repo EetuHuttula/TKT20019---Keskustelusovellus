@@ -8,6 +8,7 @@ body {
 
 .container {
     flex: 1;
+    margin: 15px;
 }
 
 .porina-nurkka {

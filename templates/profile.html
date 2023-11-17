@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">  
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <title>Document</title>
 </head>
+
 <body>
+    {% include 'components/navbar.html' %}
     <div class="container">
-        {% include 'components/navbar.html' %}
-    <p>profile</p>
+        
+        <h1>User Profile</h1>
+
+        {% if user %}
+        <div>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Creation Date</strong> {{ user.creation_date }}</p>
+            <!-- Add other user information fields as needed -->
+        </div>
+
+        <!-- Display User Activity -->
+        <div>
+            <h3>Activity Information</h3>
+            <p>Threads created: {{ thread_count }}</p>
+            <p>Posts made: {{ post_count }}</p>
+            <p>Last activity: {{ last_activity }}</p>
+        </div>
+
+        <!-- Add an Edit Profile link or button -->
+        <a href="/edit-profile">Edit Profile</a>
+        {% else %}
+        <p>User not found.</p>
+        {% endif %}
+
     </div>
-        {% include 'components/footer.html' %}
+    {% include 'components/footer.html' %}
 </body>
+
 </html>
