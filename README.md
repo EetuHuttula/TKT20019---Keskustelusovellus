@@ -44,8 +44,9 @@ Luo tietokanta ja käyttäjä sovellusta varten. (taulut löydät schematic.sql 
 
 Määritä ympäristömuuttujat:
 Luo .env-tiedosto sovelluksen juurikansioon ja määritä tarvittavat ympäristömuuttujat, kuten tietokantayhteys ja salainen avain.
-DATABASE_URL=
-SECRET_KEY=
+
+DATABASE_URL=(database linkitys)
+SECRET_KEY=(oma secret key)
 
 käynnistä sovellus komennolla flask run
 
