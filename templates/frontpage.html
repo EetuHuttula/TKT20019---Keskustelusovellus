@@ -14,7 +14,9 @@
     {% include 'components/navbar.html' %}
 
     <div class="container">
-        <a href="/newthread">Make a Thread</a>
+
+        {% include 'components/newthread.html' %}
+        <hr />
         <div id="threadBox">
             {% for thread in threads %}
             <div class="smallerThreadBox">
