@@ -3,13 +3,13 @@
 <nav class="navbar">
        <h2 class="porina-nurkka">Porinanurkka</h2>
     <a href="/">Frontpage</a>
-    <a href="/about">About</a>
+    <a href="/polls">Polls</a>
     <a href="/profile">Profile</a>
     
     {% if session.username %}
         <p><span>Logged in as {{ session.username }}</span></p>
-        <a href="/logout">Kirjaudu ulos</a>
+        <a href="/logout">Log out</a>
     {% else %}
-        <a href="/login">Kirjaudu sisään</a>
+        <a href="/login">login</a>
     {% endif %}
 </nav>
