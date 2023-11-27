@@ -28,14 +28,25 @@
                 <form method="POST" action="{{ url_for('like', thread_id=thread.id) }}">
                     <button type="submit">Like</button>
                     <a href="{{ url_for('view_thread', thread_id=thread.id) }}">Reply</a>
+
+                    {% if session['username'] == thread.user_username %}
+                    
+                    <a href="{{ url_for('edit_thread', thread_id=thread.id) }}">Edit</a>
+                    <a href="{{ url_for('delete_thread', thread_id=thread.id) }}">Delete</a>
+                    {% endif %}
+
                     {% with messages = get_flashed_messages() %}
+
                     {% if messages %}
+
                     <ul class="flashes">
                         {% for message in messages %}
                         <li>{{ message }}</li>
                         {% endfor %}
                     </ul>
+
                     {% endif %}
+
                     {% endwith %}
                 </form>
 

@@ -25,8 +25,9 @@ CREATE TABLE posts (
 CREATE TABLE likes (
     id SERIAL PRIMARY KEY,
     user_username VARCHAR(255) REFERENCES users(username),
-    thread_id INTEGER REFERENCES threads(id)
+    thread_id INTEGER REFERENCES threads(id) ON DELETE CASCADE
 );
+
 
 
 
