@@ -6,6 +6,10 @@ app.config["SECRET_KEY"] = getenv("SECRET_KEY")
 
 import routes
 import users
+import thread
+import like
+import prof
+import threadpost
 
 if __name__ == '__main__':
     app.run(debug=True)
