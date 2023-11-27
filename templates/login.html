@@ -13,7 +13,7 @@
 <body>
     {% include 'components/navbar.html' %}
     <div class="container">
-        
+
         {% if session.username %}
         <p>Logged in as {{ session.username }}</p>
         <a href="/logout">Kirjaudu ulos</a>
@@ -25,6 +25,16 @@
             <p>password:<br>
                 <input type="password" name="password">
             </p>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
             <input type="submit" value="login">
             <a href="/register">Don't have an account?</a>
         </form>

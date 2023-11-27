@@ -1,5 +1,5 @@
 from db import db
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 from app import app
 from sqlalchemy import text 
@@ -11,6 +11,9 @@ def login():
         # Handle the login logic for POST requests
         username = request.form["username"]
         password = request.form["password"]
+        if not username or not password:
+            flash("Please provide both username and password")
+            return render_template('login.html')
 
         # Validate username and password
         try:
@@ -19,8 +22,8 @@ def login():
             user = result.fetchone()
 
             if not user:
-                # TODO: Handle invalid username
-                return redirect("/")
+                flash("Invalid username or password")
+                return redirect("/login")
 
             stored_hashed_password = user.password
 
@@ -30,7 +33,8 @@ def login():
                 return redirect("/")
             else:
                 # Invalid password
-                return redirect("/")
+                flash("Invalid username or password")
+                return redirect("/login.html")
 
         except SQLAlchemyError as e:
             # Handle the database error, log it, or provide a user-friendly message
@@ -48,25 +52,28 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        if not username or not password:
+            flash("Please provide both username and password")
+            return render_template('register.html')
 
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
-        # Tallenna käyttäjä tietokantaan
+        # Save the user to the database
         try:
             sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
             db.session.execute(sql, {"username": username, "password": hashed_password})
             db.session.commit()
 
-            session["username"] = username  # Kirjaudu sisään automaattisesti
+            session["username"] = username  # Automatically log in
             return redirect("/")
 
         except Exception as e:
             db.session.rollback()
-            print(f"Registration Error: {str(e)}")
-            return render_template('registration_failed.html')
-
+            flash("Username taken")
+            return render_template('/register.html')
         finally:
             db.session.close()
 
