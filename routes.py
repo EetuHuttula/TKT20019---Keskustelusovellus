@@ -1,11 +1,16 @@
 from app import app
-from flask import redirect, render_template, request, session, url_for
+from flask import redirect, render_template, request, session, url_for, flash
 from db import db
 from sqlalchemy import text 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    query = text("SELECT * FROM threads")
+    query = text("""
+        SELECT t.*, COUNT(l.id) AS like_count
+        FROM threads t
+        LEFT JOIN likes l ON t.id = l.thread_id
+        GROUP BY t.id
+    """)
     result = db.session.execute(query)
     threads = result.fetchall()
     return render_template('frontpage.html', threads=threads)
@@ -118,3 +123,26 @@ def get_post_count(username):
     result = db.session.execute(query, {"username": username})
     post_count = result.scalar()  # scalar() fetches the count value
     return post_count
+
+@app.route("/like/<int:thread_id>", methods=["POST"])
+def like(thread_id):
+    username = session.get("username")
+
+    if not username:
+        flash("You must be logged in to like a thread.", "error")
+        return redirect("/login")
+
+    # Check if the user has already liked the thread
+    query_existing_like = text("SELECT * FROM likes WHERE user_username = :username AND thread_id = :thread_id")
+    result_existing_like = db.session.execute(query_existing_like, {"username": username, "thread_id": thread_id})
+    existing_like = result_existing_like.fetchone()
+
+    if existing_like:
+        flash("You have already liked this thread.", "error")
+    else:
+        # Add a new like
+        query_new_like = text("INSERT INTO likes (user_username, thread_id) VALUES (:username, :thread_id)")
+        db.session.execute(query_new_like, {"username": username, "thread_id": thread_id})
+        db.session.commit()
+        flash("You liked the thread!", "success")
+    return redirect(url_for("index"))
