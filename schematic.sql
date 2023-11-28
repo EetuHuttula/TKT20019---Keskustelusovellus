@@ -19,7 +19,7 @@ CREATE TABLE posts (
     content TEXT NOT NULL,
     post_date VARCHAR(16) DEFAULT to_char(CURRENT_TIMESTAMP, 'DD.MM.YY'),
     user_username VARCHAR(255) REFERENCES users (username) NOT NULL,
-    thread_id INTEGER REFERENCES threads (id) NOT NULL
+    thread_id INTEGER REFERENCES threads (id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE likes (
