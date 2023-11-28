@@ -1,9 +1,9 @@
-<form action="/send" method="POST">
-    title: <br>
-    <input type="text" name="title" required>
-    <br>
-    Message: <br>
-    <textarea name="content" rows="3" cols="40" required></textarea>
-    <br>
-    <input type="submit" value="Send">
+<form class="styled-form" action="/send" method="POST">
+    <label class="form-label" for="title">Title:</label>
+    <input class="form-input" type="text" id="title" name="title" required>
+
+    <label class="form-label" for="content">Message:</label>
+    <textarea class="form-input" id="content" name="content" rows="3" required></textarea>
+
+    <input class="form-submit" type="submit" value="Send">
 </form>

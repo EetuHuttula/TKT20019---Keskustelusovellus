@@ -1,14 +1,14 @@
 <!--NAVBAR COMPONENT-->
 
 <nav class="navbar">
-       <h2 class="porina-nurkka">Porinanurkka</h2>
-    <a href="/">Frontpage</a>
-    <a href="/profile">Profile</a>
-    <a href="/polls">Polls</a>
+    <h2 class="porina-nurkka">Porinanurkka</h2>
+    <a href="/"><i class="fas fa-home"></i></a>
+    <a href="/profile"><i class="fas fa-user"></i></a>
+    <a href="/polls"><i class="fas fa-poll"></i></a>
     {% if session.username %}
         <p><span>Logged in as {{ session.username }}</span></p>
-        <a href="/logout">Log out</a>
+        <a href="/logout"><i class="fas fa-sign-out-alt"></i></a>
     {% else %}
-        <a href="/login">Login</a>
+        <a href="/login"><i class="fas fa-sign-in-alt"></i></a>
     {% endif %}
 </nav>
