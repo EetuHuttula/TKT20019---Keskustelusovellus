@@ -6,30 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}"> 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-..." crossorigin="anonymous" />
     <title>{{ thread.title }}</title>
 </head>
 
 <body>
     {% include 'components/navbar.html' %}
-
     <div class="container">
-        <h1>{{ thread.title }}</h1>
-        <p>{{ thread.content }}</p>
-        <p>Op: {{ thread.user_username }}</p>
-
-        <h2>Replies:</h2>
-        <div>
-            {% for post in posts %}
-            <p>{{ post.content }}</p>
-            <p>Username: {{ post.user_username }}</p>
-            {% endfor %}
+        <div id="threadBox">
+            <div class="smallerThreadBox">
+                <div class="threadHeader">
+                    <h3>{{ thread.title }}</h3>
+                </div>
+            <div class="threadContent">
+                <p>{{ thread.content }}</p>
+                <h5>Op: {{ thread.user_username }}</h5>
+            </div>
+    
+        <h3>Replies:</h3>
+            <div class="threadContent">
+                <div class="replies">
+                    {% for post in posts %}
+                    <div class="reply">
+                        <p>{{ post.content }}</p>
+                        <h5>by: {{ post.user_username }}</h5>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <h3>Reply to Thread:</h3>
+            <form method="post">
+                <textarea class="form-content" name="content" rows="4" cols="30" required></textarea><br>
+                <input class="form-submit" type="submit" value="Post Reply">
+            </form>
+            </div>
         </div>
-
-        <h2>Reply to Thread:</h2>
-        <form method="post">
-            <textarea name="content" rows="4" cols="50" required></textarea><br>
-            <input type="submit" value="Post Reply">
-        </form>
     </div>
 
     {% include 'components/footer.html' %}
