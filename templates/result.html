@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <title>Document</title>
+</head>
+
+<body>
+    {% include 'components/navbar.html' %}
+    {{ topic }}
+    <hr>
+    <ul>
+        {% for choice in choices %}
+        <li> {{ choice.choice }}: {{ choice.count }} kpl
+            {% endfor %}
+    </ul>
+    <hr>
+    <a href="/polls">Back to polls</a>
+    {% include 'components/footer.html' %}
+</body>
+
+</html>

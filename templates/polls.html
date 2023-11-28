@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <title>Document</title>
+</head>
+
+<body>
+
+    {% include 'components/navbar.html' %}
+<div class="container">
+    {% include 'components/makepolls.html' %}
+     <hr />
+    <div id="threadBox">
+            {% for poll in polls %}
+            <div class="smallerThreadBox">
+                <div>
+                    <p>Topic: {{ poll.topic }}</p>
+                    <p>Created At: {{ poll.created_at }}</p>
+                    <a href="/poll/{{ poll.id }}">View Poll</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% include 'components/footer.html' %}
+</body>
+
+</html>
