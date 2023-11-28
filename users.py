@@ -1,9 +1,10 @@
-from db import db
+"""This module includes functions for login and registration"""
 from flask import redirect, render_template, request, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
-from app import app
-from sqlalchemy import text 
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import text
+from db import db
+from app import app
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -31,10 +32,9 @@ def login():
                 # Password is correct
                 session["username"] = username
                 return redirect("/")
-            else:
                 # Invalid password
-                flash("Invalid username or password")
-                return redirect("/login.html")
+            flash("Invalid username or password")
+            return redirect("/login.html")
 
         except SQLAlchemyError as e:
             # Handle the database error, log it, or provide a user-friendly message
@@ -42,13 +42,11 @@ def login():
             print(f"Database Error: {str(e)}")
             return redirect("/")
         finally:
-            db.session.close()    
-    else:
-        # Handle the rendering of the login form for GET requests
-        return render_template('login.html')
+            db.session.close()
+
+    return render_template('login.html')
 
 #REGISTER function
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -76,12 +74,9 @@ def register():
             return render_template('/register.html')
         finally:
             db.session.close()
-
-    else:
-        return render_template('register.html')
+    return render_template('register.html')
 
 #LOGOUT function
-
 @app.route("/logout")
 def logout():
     session.pop("username", None)

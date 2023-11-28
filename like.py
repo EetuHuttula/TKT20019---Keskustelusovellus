@@ -1,7 +1,8 @@
+"""This module includes function for liking the threads"""
+from flask import redirect, session, url_for, flash
+from sqlalchemy import text
 from app import app
-from flask import redirect, render_template, request, session, url_for, flash
 from db import db
-from sqlalchemy import text 
 
 @app.route("/like/<int:thread_id>", methods=["POST"])
 def like(thread_id):
@@ -12,15 +13,22 @@ def like(thread_id):
         return redirect("/login")
 
     # Check if the user has already liked the thread
-    query_existing_like = text("SELECT * FROM likes WHERE user_username = :username AND thread_id = :thread_id")
-    result_existing_like = db.session.execute(query_existing_like, {"username": username, "thread_id": thread_id})
+    query_existing_like = text(
+    """SELECT * FROM likes WHERE
+    user_username = :username AND
+    thread_id = :thread_id""")
+    result_existing_like = db.session.execute(query_existing_like,
+                            {"username": username, "thread_id": thread_id})
     existing_like = result_existing_like.fetchone()
 
     if existing_like:
         flash("You have already liked this thread.", "error")
     else:
         # Add a new like
-        query_new_like = text("INSERT INTO likes (user_username, thread_id) VALUES (:username, :thread_id)")
+        query_new_like = text(
+        """INSERT INTO likes 
+        (user_username, thread_id) 
+        VALUES (:username, :thread_id)""")
         db.session.execute(query_new_like, {"username": username, "thread_id": thread_id})
         db.session.commit()
         flash("You liked the thread!", "success")

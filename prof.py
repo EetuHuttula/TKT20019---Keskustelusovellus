@@ -1,7 +1,9 @@
+"""This module includes functions for profile page,
+like getting post count, thread count and user data."""
+from flask import redirect, render_template, session
+from sqlalchemy import text
 from app import app
-from flask import redirect, render_template, request, session, url_for, flash
 from db import db
-from sqlalchemy import text 
 
 @app.route("/profile")
 def profile():
@@ -18,10 +20,11 @@ def profile():
         # Fetch post count for the user
         post_count = get_post_count(user.username)
 
-        return render_template('profile.html', thread_count=thread_count, post_count=post_count, user=user)
-    else:
-        # Handle the case when the user is not found
-        return render_template('profile.html', thread_count=0, post_count=0, user=None)
+        return render_template('profile.html',
+            thread_count=thread_count,
+            post_count=post_count, user=user)
+    return render_template('profile.html',
+        thread_count=0, post_count=0, user=None)
 
 # Function to retrieve user information from the database
 def get_user_info(username):

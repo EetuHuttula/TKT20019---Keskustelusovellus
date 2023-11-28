@@ -1,7 +1,9 @@
+"""This module includes functions for getting
+theads to frontpage"""
+from flask import redirect, render_template, request, session, url_for
+from sqlalchemy import text
 from app import app
-from flask import redirect, render_template, request, session, url_for, flash
 from db import db
-from sqlalchemy import text 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -28,5 +30,4 @@ def newthread():
         db.session.add(thread)
         db.session.commit()
 
-        return redirect(url_for("index"))
-
+    return redirect(url_for("index"))
