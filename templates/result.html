@@ -6,20 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-..." crossorigin="anonymous" />
     <title>Document</title>
 </head>
 
 <body>
     {% include 'components/navbar.html' %}
-    {{ topic }}
+
+    <div class="container">
+        <div id="threadbox">
+    
+            <div class="smallerThreadBox">
+                <div class="threadHeader"> 
+               <h3>{{ topic }}</h3></div>
     <hr>
-    <ul>
+    <div class="threadContent">
         {% for choice in choices %}
-        <li> {{ choice.choice }}: {{ choice.count }} kpl
+        <p> {{ choice.choice }}: {{ choice.count }} kpl </p>
             {% endfor %}
-    </ul>
+</div>
     <hr>
-    <a href="/polls">Back to polls</a>
+    <div class="threadFooter">
+    <a href="/polls">Back to polls</a></div>
+
+    </div>
+    </div>
+    </div>
+
     {% include 'components/footer.html' %}
 </body>
 
