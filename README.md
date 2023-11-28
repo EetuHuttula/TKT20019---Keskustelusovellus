@@ -23,6 +23,9 @@ Ylläpitäjä voi poistaa lankoja tarvittaessa.
 Anonyymit langan aloitukset:
 Lankoja ei voi aloittaa anonyyminä, vaan käyttäjän tulee luoda tunnus.
 
+kyselyt: 
+kukavain voi lisätä, vastata ja katsoa kyselyjä
+
 VÄLIPALAUTUS (19.11.2023) 
 Valmiit asiat:
 
