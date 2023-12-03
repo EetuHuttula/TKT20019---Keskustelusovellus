@@ -14,7 +14,6 @@ import like
 import prof
 import threadpost
 import polls
-import admin
 
 if __name__ == '__main__':
     #app updates after changes
