@@ -1,7 +1,10 @@
+CREATE DATABASE porinanurkka;
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
     password TEXT NOT NULL,
+    is_admin BOOLEAN DEFAULT FALSE,
     creation_date VARCHAR(16) DEFAULT to_char(CURRENT_TIMESTAMP, 'DD.MM.YY')
 );
 
@@ -45,7 +48,3 @@ CREATE TABLE answers (
     choice_id INTEGER REFERENCES choices,
     sent_at TIMESTAMP
 );
-
-
-
-

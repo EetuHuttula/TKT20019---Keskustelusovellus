@@ -24,7 +24,7 @@ def login():
 
             if not user:
                 flash("Invalid username or password")
-                return redirect("/login")
+                return render_template("login.html")
 
             stored_hashed_password = user.password
 
@@ -34,7 +34,7 @@ def login():
                 return redirect("/")
                 # Invalid password
             flash("Invalid username or password")
-            return redirect("/login.html")
+            return render_template("login.html")
 
         except SQLAlchemyError as e:
             # Handle the database error, log it, or provide a user-friendly message
@@ -59,10 +59,13 @@ def register():
 
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
+        # Determine if the user should be an admin
+        is_admin = username.lower() == "admin"
+
         # Save the user to the database
         try:
-            sql = text("INSERT INTO users (username, password) VALUES (:username, :password)")
-            db.session.execute(sql, {"username": username, "password": hashed_password})
+            sql = text("INSERT INTO users (username, password, is_admin) VALUES (:username, :password, :is_admin)")
+            db.session.execute(sql, {"username": username, "password": hashed_password, "is_admin": is_admin})
             db.session.commit()
 
             session["username"] = username  # Automatically log in
@@ -70,10 +73,11 @@ def register():
 
         except Exception as e:
             db.session.rollback()
-            flash("Username taken")
+            flash("Username already taken, please try again")
             return render_template('/register.html')
         finally:
             db.session.close()
+
     return render_template('register.html')
 
 #LOGOUT function

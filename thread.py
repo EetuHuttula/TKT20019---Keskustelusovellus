@@ -36,15 +36,21 @@ def edit_thread(thread_id):
     #render the edit.html
     return render_template('edit_thread.html', thread=thread)
 
-@app.route("/delete_thread/<int:thread_id>", methods=["GET","POST"])
+def is_admin(username):
+    query = text("SELECT is_admin FROM users WHERE username = :username")
+    result = db.session.execute(query, {"username": username})
+    is_admin = result.scalar()
+    return is_admin == True
+
+@app.route("/delete_thread/<int:thread_id>", methods=["GET", "POST"])
 def delete_thread(thread_id):
-    #check if user has logged in
+    # Check if user has logged in
     username = session.get("username")
     if not username:
         flash("You must be logged in to delete a thread.", "error")
         return redirect("/login")
 
-    #get thread
+    # Get thread
     query_thread = text("SELECT * FROM threads WHERE id = :thread_id")
     result_thread = db.session.execute(query_thread, {"thread_id": thread_id})
     selected_thread = result_thread.fetchone()
@@ -53,12 +59,14 @@ def delete_thread(thread_id):
         flash("Thread not found.", "error")
         return redirect("/")
 
-    #check if user has made the thread
+    # Check if user is the author or an admin
     if username != selected_thread.user_username:
-        flash("You are not the author of this thread.", "error")
-        return redirect("/")
+        # If the user is not the author, check if they are an admin
+        if not is_admin(username):
+            flash("You are not the author or an administrator of this thread.", "error")
+            return redirect("/")
 
-    #delete thread
+    # Delete thread
     query_delete_thread = text("DELETE FROM threads WHERE id = :thread_id")
     db.session.execute(query_delete_thread, {"thread_id": thread_id})
     db.session.commit()
