@@ -44,6 +44,7 @@ Suorita pip install -r requirements.txt asentaaksesi tarvittavat Python-paketit.
 Määritä tietokanta:
 Varmista, että PostgreSQL-tietokantapalvelin on asennettu ja käynnissä.
 Luo tietokanta ja käyttäjä sovellusta varten. (taulut löydät schematic.sql filestä)
+aja komento psql < schematic.sql
 
 Määritä ympäristömuuttujat:
 Luo .env-tiedosto sovelluksen juurikansioon ja määritä tarvittavat ympäristömuuttujat, kuten tietokantayhteys ja salainen avain.
