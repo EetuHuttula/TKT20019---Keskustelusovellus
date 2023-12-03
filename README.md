@@ -54,6 +54,20 @@ SECRET_KEY=(oma secret key)
 
 käynnistä sovellus komennolla flask run
 
+VÄLIPALAUTUS (3.12.2023) 
+
+Valmiit asiat:
+-käyttäjä voi rekisteröityä ja kirjautua sisään omilla tunnuksillaan.
+-lankojen aloittaminen ja niihin vastaaminen.
+-käyttäjä voi muuttaa tai poistaa omaa lankaa.
+-käyttäjä voi tehdä kyselyn, johon voi vastata kukavain.
+
+Tällä hetkellä sivustolla on enään jäljellä ulkoasun muokkaus.
+Päätin poistaa admin mahdollisuudet sivustolla sillä se ei luo lisä arvoa mielestäni projektille,
+eikä minulla ole tarpeeksi aikaa enään tehdä sellaista ominaisuutta. 
+Jätän kuitenkin databaseen ja kirjautumis/register functiolle alun tämän toteuttamiseen, siltä varalta
+että palaan tekemään sen joskus.
+
 
 
 
