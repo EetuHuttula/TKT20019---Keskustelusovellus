@@ -27,6 +27,7 @@
                     <p>Created At: {{ poll.created_at }}</p>
                 <div class="threadFooter">
                     <a href="/poll/{{ poll.id }}">View Poll</a>
+                    <a href="{{ url_for('delete_poll', poll_id=poll.id) }}">Delete Poll</a>
                 </div>
                 </div>
                 </div>

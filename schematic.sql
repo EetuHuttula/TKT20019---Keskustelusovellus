@@ -40,12 +40,12 @@ CREATE TABLE polls (
 
 CREATE TABLE choices (
     id SERIAL PRIMARY KEY,
-    poll_id INTEGER REFERENCES polls,
+    poll_id INTEGER REFERENCES polls ON DELETE CASCADE,
     choice TEXT
 );
 
 CREATE TABLE answers (
     id SERIAL PRIMARY KEY,
-    choice_id INTEGER REFERENCES choices,
+    choice_id INTEGER REFERENCES choices ON DELETE CASCADE,
     sent_at TIMESTAMP
 );

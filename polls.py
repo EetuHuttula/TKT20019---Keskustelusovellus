@@ -4,11 +4,13 @@ from flask import redirect, render_template, request, flash, session
 from sqlalchemy import text
 from app import app
 from db import db
+import delete_polls
 
 @app.route("/polls", methods=["GET", "POST"])
 def polls():
     # Fetch data about polls
-    poll_query = text("SELECT id, topic,user_username, created_at FROM polls ORDER BY id DESC")
+    poll_query = text("""SELECT id, topic,user_username, created_at
+                    FROM polls ORDER BY id DESC""")
     poll_result = db.session.execute(poll_query)
     polls = poll_result.fetchall()
     return render_template('polls.html', polls=polls)
@@ -18,7 +20,7 @@ def new():
     return render_template("new.html")
 
 @app.route("/create", methods=["POST"])
-def create(): 
+def create():
     username = session.get("username")
 
     if not username:
@@ -27,32 +29,31 @@ def create():
 
     topic = request.form["topic"]
     choices = request.form["choice"]
-    
+
     # Check if the topic is empty
     if not topic:
         flash("Topic cannot be empty", "error")
         return redirect("/polls")
-    
-     # Check if there is at least one choice
-    if len(choices) < 2 or all(choice == "" for choice in choices):
+
+    # Check if at least two choices are provided
+    if len([choice for choice in choices if choice.strip()]) < 2:
         flash("At least two choices must be provided", "error")
         return redirect("/polls")
-   
+
     # Insert a new poll into the 'polls' table
-    insert_poll_query = text("INSERT INTO polls (topic, created_at, user_username) VALUES (:topic, NOW(), :user_username) RETURNING id")
+    insert_poll_query = text("""INSERT INTO polls (topic, created_at, user_username)
+                            VALUES (:topic, NOW(), :user_username) RETURNING id""")
     poll_result = db.session.execute(insert_poll_query, {"topic": topic, "user_username": username})
     poll_id = poll_result.fetchone()[0]
 
-     # Fetch user information
-    user_query = text("SELECT username FROM users WHERE username = :username")
-    user_result = db.session.execute(user_query, {"username": username})
-    user = user_result.fetchone()
-    
+   
+
     # Insert choices into the 'choices' table
     choices = request.form.getlist("choice")
     for choice in choices:
         if choice != "":
-            insert_choice_query = text("INSERT INTO choices (poll_id, choice) VALUES (:poll_id, :choice)")
+            insert_choice_query = text("""INSERT INTO choices (poll_id, choice)
+                                        VALUES (:poll_id, :choice)""")
             db.session.execute(insert_choice_query, {"poll_id": poll_id, "choice": choice})
 
     db.session.commit()
@@ -74,8 +75,8 @@ def answer():
     poll_id = request.form["id"]
     if "answer" in request.form:
         choice_id = request.form["answer"]
-        query = text("INSERT INTO answers (choice_id, sent_at) VALUES (:choice_id, NOW())")
-        db.session.execute(query, {"choice_id":choice_id})
+        answer_query = text("INSERT INTO answers (choice_id, sent_at) VALUES (:choice_id, NOW())")
+        db.session.execute(answer_query, {"choice_id":choice_id})
         db.session.commit()
     return redirect("/result/" + str(poll_id))
 
