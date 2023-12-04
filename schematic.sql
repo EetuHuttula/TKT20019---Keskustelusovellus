@@ -34,6 +34,7 @@ CREATE TABLE likes (
 CREATE TABLE polls (
     id SERIAL PRIMARY KEY,
     topic TEXT,
+    user_username VARCHAR(255) REFERENCES users (username) NOT NULL,
     created_at TIMESTAMP
 );
 
