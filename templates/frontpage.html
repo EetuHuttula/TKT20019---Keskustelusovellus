@@ -40,8 +40,8 @@
             <!-- Buttons for Liking & Replying at the Bottom -->
             <div class="threadFooter">
             <form method="POST" action="{{ url_for('like', thread_id=thread.id) }}">
-                <button type="submit"><i class="fas fa-thumbs-up"></i> Like</button>
-            </form>
+                <button class="like_button" type="submit"><i class="fas fa-thumbs-up"></i> Like</button>
+            </form> 
             <a href="{{ url_for('view_thread', thread_id=thread.id) }}"><i class="fas fa-reply"></i> Reply</a>
 
             {% if session['username'] == thread.user_username %}

@@ -30,7 +30,6 @@ body {
 #threadBox {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
 }
 
 .smallerThreadBox {
@@ -68,19 +67,24 @@ body {
 .threadFooter {
     margin-top: auto;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 5px;
 }
 
-/* Style the buttons in the thread footer */
+
 .threadFooter button,
 .threadFooter a {
     padding: 8px;
-    background-color: #333;
-    color: white;
+    margin: 0;
+    box-sizing: border-box;
+    display: inline-block;
     text-decoration: none;
     border: none;
     cursor: pointer;
+    background-color: #333;
+    color: white;
 }
+
 
 .threadFooter button:hover,
 .threadFooter a:hover {
