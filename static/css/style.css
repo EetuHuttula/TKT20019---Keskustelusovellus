@@ -4,23 +4,24 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: #f4f4f4; /* Light gray background for the body */
 }
 
 .container {
     flex: 1;
     margin: 15px;
+    align-items: center;
+    justify-content: center;
 }
 
 .porina-nurkka {
     color: white;
 }
 
-
-
 .makeNewThread {
     margin: 20px;
     padding: 10px;
-    background-color: #333;
+    background-color: #555; /* Slightly darker gray */
     color: white;
     border: none;
     cursor: pointer;
@@ -34,9 +35,133 @@ body {
 
 .smallerThreadBox {
     width: 300px;
-    margin: 10px;
-    padding: 15px;
+    margin: 5px;
+    padding: 10px;
     border: 1px solid #ccc;
     text-align: center;
+    background-color: #fff; /* White background for thread box */
+    display: flex;
+    flex-direction: column;
 }
 
+.threadHeader {
+    color: white;
+    padding: 8px;
+}
+
+.threadHeader h3 {
+    background-color: #2980b9; /* Darker blue background for header */
+    margin: 0;
+    padding: 10px;
+}
+
+.reply {
+    border: 1px solid #ccc;
+}
+
+.threadContent,
+.threadFooter {
+    margin-bottom: 10px;
+    margin-right: 5px;
+    font-size: 16px;
+}
+.threadFooter {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* Style the buttons in the thread footer */
+.threadFooter button,
+.threadFooter a {
+    padding: 8px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.threadFooter button:hover,
+.threadFooter a:hover {
+    background-color: #555;
+}
+
+.styled-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-submit {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-submit:hover {
+    background-color: #2980b9;
+}
+
+.poll-form {
+    margin-top: 20px;
+}
+
+.poll-choice {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.submit-button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.back-link {
+    display: block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+#poll_container {
+    justify-content: center;
+}
+
+.profpic {
+    height: 15%;
+    width: 15%;
+    border: 1px solid #ccc
+}
+
+.profile_container {
+    border: 1px solid #ccc;
+    margin: 5px;
+
+}
+.profile_content {
+    margin:  15px;
+}

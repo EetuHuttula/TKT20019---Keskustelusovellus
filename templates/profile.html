@@ -6,37 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-..." crossorigin="anonymous" />
     <title>Document</title>
 </head>
 
 <body>
     {% include 'components/navbar.html' %}
     <div class="container">
-        
-        <h1>User Profile</h1>
+        <div class="profile_container">
+            <div class="profile_content">
+                <h1>User Profile</h1>
+                <img class="profpic" src="{{ url_for('static', filename='prof.png') }}" alt="profilepicture" />
+                {% if user %}
+                <div>
+                    <p><strong>Username:</strong> <br> {{ user.username }}</p>
+                    <p><strong>Creation Date:</strong> <br> {{ user.creation_date }}</p>
+                    <!-- Add other user information fields as needed -->
+                </div>
 
-        {% if user %}
-        <div>
-            <p><strong>Username:</strong> {{ user.username }}</p>
-            <p><strong>Creation Date</strong> {{ user.creation_date }}</p>
-            <!-- Add other user information fields as needed -->
+                <!-- Display User Activity -->
+                <div>
+                    <h3>Activity Information</h3>
+                    <p>Threads created: {{ thread_count }}</p>
+                    <p>Threads replied: {{ post_count }}</p>
+                    <p>Threads liked: {{ like_count }}</p>
+                </div>
+                {% else %}
+                <p>User not found.</p>
+                {% endif %}
+            </div>
         </div>
-
-        <!-- Display User Activity -->
-        <div>
-            <h3>Activity Information</h3>
-            <p>Threads created: {{ thread_count }}</p>
-            <p>Posts made: {{ post_count }}</p>
-            <p>Last activity: {{ last_activity }}</p>
-        </div>
-
-        <!-- Add an Edit Profile link or button -->
-        <a href="/edit-profile">Edit Profile</a>
-        {% else %}
-        <p>User not found.</p>
-        {% endif %}
-
     </div>
     {% include 'components/footer.html' %}
 </body>
