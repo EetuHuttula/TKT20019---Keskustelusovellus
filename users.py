@@ -64,8 +64,10 @@ def register():
 
         # Save the user to the database
         try:
-            sql = text("INSERT INTO users (username, password, is_admin) VALUES (:username, :password, :is_admin)")
-            db.session.execute(sql, {"username": username, "password": hashed_password, "is_admin": is_admin})
+            sql = text("""INSERT INTO users (username, password, is_admin)
+             VALUES (:username, :password, :is_admin)""")
+            db.session.execute(sql, {"username": username,
+            "password": hashed_password, "is_admin": is_admin})
             db.session.commit()
 
             session["username"] = username  # Automatically log in

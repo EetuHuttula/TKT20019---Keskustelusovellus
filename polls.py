@@ -12,8 +12,8 @@ def polls():
     poll_query = text("""SELECT id, topic,user_username, created_at
                     FROM polls ORDER BY id DESC""")
     poll_result = db.session.execute(poll_query)
-    polls = poll_result.fetchall()
-    return render_template('polls.html', polls=polls)
+    polls_data = poll_result.fetchall()
+    return render_template('polls.html', polls=polls_data)
 
 @app.route("/new")
 def new():
@@ -46,8 +46,6 @@ def create():
     poll_result = db.session.execute(insert_poll_query, {"topic": topic, "user_username": username})
     poll_id = poll_result.fetchone()[0]
 
-   
-
     # Insert choices into the 'choices' table
     choices = request.form.getlist("choice")
     for choice in choices:
@@ -60,15 +58,16 @@ def create():
     return redirect("/polls")
 
 
-@app.route("/poll/<int:id>")
-def poll(id):
-    query = text("SELECT topic FROM polls WHERE id=:id")
-    result = db.session.execute(query, {"id":id})
-    topic = result.fetchone()[0]
-    query1 = text("SELECT id, choice FROM choices WHERE poll_id=:id")
-    result = db.session.execute(query1, {"id":id})
-    choices = result.fetchall()
-    return render_template("poll.html", id=id, topic=topic, choices=choices)
+@app.route("/poll/<int:poll_id>")
+def poll(poll_id):
+    query_topic = text("SELECT topic FROM polls WHERE id=:poll_id")
+    result_topic = db.session.execute(query_topic, {"poll_id": poll_id})
+    topic = result_topic.fetchone()[0]
+
+    query_choices = text("SELECT id, choice FROM choices WHERE poll_id=:poll_id")
+    result_choices = db.session.execute(query_choices, {"poll_id": poll_id})
+    choices = result_choices.fetchall()
+    return render_template("poll.html", poll_id=poll_id, topic=topic, choices=choices)
 
 @app.route("/answer", methods=["POST"])
 def answer():
@@ -76,17 +75,20 @@ def answer():
     if "answer" in request.form:
         choice_id = request.form["answer"]
         answer_query = text("INSERT INTO answers (choice_id, sent_at) VALUES (:choice_id, NOW())")
-        db.session.execute(answer_query, {"choice_id":choice_id})
+        db.session.execute(answer_query, {"choice_id": choice_id})
         db.session.commit()
     return redirect("/result/" + str(poll_id))
 
-@app.route("/result/<int:id>")
-def result(id):
-    query = text("SELECT topic FROM polls WHERE id=:id")
-    result = db.session.execute(query, {"id":id})
-    topic = result.fetchone()[0]
-    query1 = text("SELECT c.choice, COUNT(a.id) FROM choices c LEFT JOIN answers a " \
-          "ON c.id=a.choice_id WHERE c.poll_id=:poll_id GROUP BY c.id")
-    result = db.session.execute(query1, {"poll_id":id})
-    choices = result.fetchall()
+@app.route("/result/<int:poll_id>")
+def result(poll_id):
+    query_topic = text("SELECT topic FROM polls WHERE id=:poll_id")
+    result_topic = db.session.execute(query_topic, {"poll_id": poll_id})
+    topic = result_topic.fetchone()[0]
+
+    query_choices = text("SELECT c.choice, COUNT(a.id) FROM choices c "
+                        "LEFT JOIN answers a ON c.id=a.choice_id "
+                        "WHERE c.poll_id=:poll_id GROUP BY c.id")
+    result_choices = db.session.execute(query_choices, {"poll_id": poll_id})
+    choices = result_choices.fetchall()
+
     return render_template("result.html", topic=topic, choices=choices)

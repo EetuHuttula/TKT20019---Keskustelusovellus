@@ -34,6 +34,7 @@ def view_thread(thread_id):
         "username": username, "thread_id": thread_id})
         db.session.commit()
         return redirect(url_for('view_thread', thread_id=thread_id))
+    return None
 
 @app.route("/send", methods=["POST"])
 def send():
