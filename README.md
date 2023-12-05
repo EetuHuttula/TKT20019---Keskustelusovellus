@@ -26,16 +26,7 @@ Lankoja ei voi aloittaa anonyyminä, vaan käyttäjän tulee luoda tunnus.
 kyselyt: 
 kukavain voi lisätä, vastata ja katsoa kyselyjä
 
-VÄLIPALAUTUS (19.11.2023) 
-Valmiit asiat:
-
-Rekisteröityminen ja kirjautuminen: 
-Käyttäjät voivat rekisteröityä ja luoda tunnuksen sekä kirjautua sisään omilla tunnuksillaan.
-
-Lankojen aloittaminen ja niihin vastaaminen:
-Käyttäjät voivat aloittaa uusia lankoja, lukea olemassa olevia ja vastata niihin.
-
-OHJEET KÄYTÖÖN:
+**OHJEET KÄYTÖÖN:**
 
 Avaa komentokehote tai terminaali.
 Siirry sovelluksen juurikansioon.
@@ -54,7 +45,7 @@ SECRET_KEY=(oma secret key)
 
 käynnistä sovellus komennolla flask run
 
-VÄLIPALAUTUS (3.12.2023) 
+**VÄLIPALAUTUS (3.12.2023)** 
 
 Valmiit asiat:
 -käyttäjä voi rekisteröityä ja kirjautua sisään omilla tunnuksillaan.
