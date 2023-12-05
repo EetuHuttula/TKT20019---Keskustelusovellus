@@ -41,7 +41,7 @@ aja komento:
 ```shell 
 psql < schematic.sql 
 ``` 
-Jos tämä ei toimi voit kopioida schematic.sql taulut ja manuaalisesti laittaane psql terminaalin kautta haluamaasi tietokantaan.
+Jos tämä ei toimi voit kopioida schematic.sql taulut ja manuaalisesti laittaa ne psql terminaalin kautta haluamaasi tietokantaan.
 
 
 Määritä ympäristömuuttujat:
