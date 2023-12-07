@@ -9,7 +9,7 @@ Käyttäjien hallinta ja kirjautuminen:
    - Käyttäjä voi kirjautua sisään omilla tunnuksillaan.
 
 Etusivu:
-    Näyttää kaikki viestiketjut (langat), jotka eri käyttäjät ovat julkaisseet.
+   - Näyttää kaikki viestiketjut (langat), jotka eri käyttäjät ovat julkaisseet.
 
 Langat:
    - Käyttäjä voi lukea lankoja ja vastata niihin.
@@ -28,10 +28,20 @@ kyselyt:
 
 **OHJEET KÄYTÖÖN:**
 
-Avaa terminaali ja siirry sovelluksen juurikansioon.
+Määritä ympäristömuuttujat:
+    - Luo .env-tiedosto sovelluksen juurikansioon
+    - ja määritä tarvittavat ympäristömuuttujat, kuten tietokantayhteys ja salainen avain.
+```shell
+DATABASE_URL="postgresql:///user"
+SECRET_KEY=""
+```
+
+Avaa terminaali ja suorita seuraavat komennot.
 Suorita 
 ```shell 
-pip install -r requirements.txt asentaaksesi tarvittavat Python-paketit.
+    $ python3 -m venv venv
+    $ source venv/bin/activate
+    $ pip install -r ./requirements.txt
  ```
 
 Määritä tietokanta:
@@ -44,13 +54,7 @@ psql < schematic.sql
 Jos tämä ei toimi voit kopioida schematic.sql taulut ja manuaalisesti laittaa ne psql terminaalin kautta haluamaasi tietokantaan.
 
 
-Määritä ympäristömuuttujat:
-    - Luo .env-tiedosto sovelluksen juurikansioon
-    - ja määritä tarvittavat ympäristömuuttujat, kuten tietokantayhteys ja salainen avain.
-```shell
-DATABASE_URL=(database linkitys)
-SECRET_KEY=(oma secret key)
-```
+
 
 käynnistä sovellus komennolla 
 ```shell
@@ -59,7 +63,7 @@ flask run
 
 **VÄLIPALAUTUS (3.12.2023)** 
 
-Valmiit asiat:
+**Valmiit asiat:**
     - käyttäjä voi rekisteröityä ja kirjautua sisään omilla tunnuksillaan.
     - lankojen aloittaminen ja niihin vastaaminen.
     - käyttäjä voi muuttaa tai poistaa omaa lankaa.
