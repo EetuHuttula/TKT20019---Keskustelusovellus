@@ -7,13 +7,13 @@ from flask import Flask
 app = Flask(__name__)
 app.config["SECRET_KEY"] = getenv("SECRET_KEY")
 #importing modules
-import routes
-import users
-import thread
-import like
-import prof
-import threadpost
-import polls
+from src import routes
+from src import users
+from src import thread
+from src import like
+from src import prof
+from src import threadpost
+from src import polls
 
 if __name__ == '__main__':
     #app updates after changes

@@ -4,7 +4,7 @@ from flask import redirect, render_template, request, flash, session
 from sqlalchemy import text
 from app import app
 from db import db
-import delete_polls
+from src import delete_polls
 
 @app.route("/polls", methods=["GET", "POST"])
 def polls():
@@ -28,7 +28,7 @@ def create():
         return redirect("/login")
 
     topic = request.form["topic"]
-    choices = request.form["choice"]
+    choices = [request.form.get('choice1'), request.form.get('choice2'), request.form.get('choice3'), request.form.get('choice4')]
 
     # Check if the topic is empty
     if not topic:
@@ -36,9 +36,9 @@ def create():
         return redirect("/polls")
 
     # Check if at least two choices are provided
-    if len([choice for choice in choices if choice.strip()]) < 2:
-        flash("At least two choices must be provided", "error")
-        return redirect("/polls")
+    if len(choices) < 2 or all(not choice.strip() for choice in choices):
+            flash("At least two non-empty choices must be provided", "error")
+            return redirect("polls")
 
     # Insert a new poll into the 'polls' table
     insert_poll_query = text("""INSERT INTO polls (topic, created_at, user_username)
