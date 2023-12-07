@@ -1,41 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-..." crossorigin="anonymous" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/components.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha256-..."
+      crossorigin="anonymous"
+    />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-
+  <body>
     {% include 'components/navbar.html' %}
-<div class="container">
-    {% include 'components/makepolls.html' %}
-     <hr />
-    <div id="threadBox">
-            {% for poll in polls %}
-            <div class="smallerThreadBox">
-                <div> <div class="threadHeader">
-                    <h3>Topic: {{ poll.topic }}</h3>
-                </div>
-                <div class="threadContent">
-                    <p>Created by: {{ poll.user_username }}</p>
-                    <p>Created At: {{ poll.created_at }}</p>
-                <div class="threadFooter">
-                    <a href="/poll/{{ poll.id }}">View Poll</a>
-                    <a href="{{ url_for('delete_poll', poll_id=poll.id) }}">Delete Poll</a>
-                </div>
-                </div>
-                </div>
+    <div class="container">
+      {% include 'components/makepolls.html' %}
+      <hr />
+      <div id="threadBox">
+        {% for poll in polls %}
+        <div class="smallerThreadBox">
+          <div>
+            <div class="threadHeader">
+              <h3>Topic: {{ poll.topic }}</h3>
             </div>
-            {% endfor %}
+            <div class="threadContent">
+              <p>Created by: {{ poll.user_username }}</p>
+              <p>Created At: {{ poll.created_at }}</p>
+              <div class="threadFooter">
+                <a href="/poll/{{ poll.id }}">View Poll</a>
+                {% if session['username'] == poll.user_username %}
+                <a href="{{ url_for('delete_poll', poll_id=poll.id) }}">Delete Poll</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
         </div>
+        {% endfor %}
+      </div>
     </div>
     {% include 'components/footer.html' %}
-</body>
-
+  </body>
 </html>

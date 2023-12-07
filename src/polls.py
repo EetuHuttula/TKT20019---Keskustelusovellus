@@ -28,7 +28,12 @@ def create():
         return redirect("/login")
 
     topic = request.form["topic"]
-    choices = [request.form.get('choice1'), request.form.get('choice2'), request.form.get('choice3'), request.form.get('choice4')]
+    choices = [
+        request.form.get('choice1'),
+        request.form.get('choice2'),
+        request.form.get('choice3'),
+        request.form.get('choice4')
+    ]
 
     # Check if the topic is empty
     if not topic:
@@ -36,9 +41,10 @@ def create():
         return redirect("/polls")
 
     # Check if at least two choices are provided
-    if len(choices) < 2 or all(not choice.strip() for choice in choices):
-            flash("At least two non-empty choices must be provided", "error")
-            return redirect("polls")
+    valid_choices = [choice for choice in choices if choice and any(c.isalpha() for c in choice)]
+    if len(valid_choices) < 2:
+        flash("At least two choices with at least two characters must be provided", "error")
+        return redirect("/polls")
 
     # Insert a new poll into the 'polls' table
     insert_poll_query = text("""INSERT INTO polls (topic, created_at, user_username)
@@ -47,19 +53,25 @@ def create():
     poll_id = poll_result.fetchone()[0]
 
     # Insert choices into the 'choices' table
-    choices = request.form.getlist("choice")
-    for choice in choices:
-        if choice != "":
-            insert_choice_query = text("""INSERT INTO choices (poll_id, choice)
-                                        VALUES (:poll_id, :choice)""")
-            db.session.execute(insert_choice_query, {"poll_id": poll_id, "choice": choice})
-
+    for choice in valid_choices:
+        insert_choice_query = text(
+            """INSERT INTO choices (poll_id, choice)
+            VALUES (:poll_id, :choice)"""
+        )
+        db.session.execute(insert_choice_query, {"poll_id": poll_id, "choice": choice})
+        
     db.session.commit()
     return redirect("/polls")
 
 
 @app.route("/poll/<int:poll_id>")
 def poll(poll_id):
+
+    username = session.get("username")
+    if not username:
+        flash("You must be logged in to view a poll.", "error")
+        return redirect("/login")
+
     query_topic = text("SELECT topic FROM polls WHERE id=:poll_id")
     result_topic = db.session.execute(query_topic, {"poll_id": poll_id})
     topic = result_topic.fetchone()[0]
@@ -71,6 +83,13 @@ def poll(poll_id):
 
 @app.route("/answer", methods=["POST"])
 def answer():
+
+    username = session.get("username")
+
+    if not username:
+        flash("You must be logged in to answer a poll.", "error")
+        return redirect("/login")
+
     poll_id = request.form["id"]
     if "answer" in request.form:
         choice_id = request.form["answer"]
@@ -81,6 +100,13 @@ def answer():
 
 @app.route("/result/<int:poll_id>")
 def result(poll_id):
+
+    username = session.get("username")
+
+    if not username:
+        flash("You must be logged in to see the results of the poll.", "error")
+        return redirect("/login")
+
     query_topic = text("SELECT topic FROM polls WHERE id=:poll_id")
     result_topic = db.session.execute(query_topic, {"poll_id": poll_id})
     topic = result_topic.fetchone()[0]
