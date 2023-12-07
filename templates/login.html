@@ -35,6 +35,7 @@
             {% endif %}
             {% endwith %}
             <input class="form-submit" type="submit" value="login">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <a  href="/register">Don't have an account?</a>
         </form>
         {% endif %}

@@ -5,9 +5,18 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import text
 from db import db
 from app import app
+from src import secrets
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+
+    if request.method == "POST":
+            csrf_token = request.form.get("csrf_token")
+            if csrf_token != session.get("csrf_token"):
+                flash("Invalid CSRF token. Please try again.")
+                return render_template("login.html")
+
+
     if request.method == "POST":
         # Handle the login logic for POST requests
         username = request.form["username"]
@@ -49,6 +58,14 @@ def login():
 #REGISTER function
 @app.route("/register", methods=["GET", "POST"])
 def register():
+ 
+    if request.method == "POST":
+            csrf_token = request.form.get("csrf_token")
+            if csrf_token != session.get("csrf_token"):
+                flash("Invalid CSRF token. Please try again.")
+                return render_template("register.html")
+
+
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
