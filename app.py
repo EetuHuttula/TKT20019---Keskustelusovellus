@@ -11,7 +11,7 @@ from src import routes
 from src import users
 from src import thread
 from src import like
-from src import prof
+from src import profile_routes
 from src import threadpost
 from src import polls
 
