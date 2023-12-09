@@ -1,6 +1,6 @@
 """This module includes functions for getting
 theads to frontpage"""
-from flask import redirect, render_template, request, session, url_for
+from flask import redirect, render_template, request, session, url_for, flash
 from sqlalchemy import text
 from app import app
 from db import db
