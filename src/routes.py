@@ -30,4 +30,10 @@ def newthread():
         db.session.add(thread)
         db.session.commit()
 
+        if "csrf_token" not in session or session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+
+
+        del session["csrf_token"]
+
     return redirect(url_for("index"))

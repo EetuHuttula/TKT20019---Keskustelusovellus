@@ -4,6 +4,6 @@
 
     <label class="form-label" for="content">Message:</label>
     <textarea class="form-input" id="content" name="content" rows="3" required></textarea>
-
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <input class="form-submit" type="submit" value="Send">
 </form>
