@@ -13,7 +13,8 @@ def delete_poll(poll_id):
         return redirect("/login")
 
     # Check if the user is the owner of the poll
-    check_owner_query = text("SELECT user_username FROM polls WHERE id = :poll_id")
+    check_owner_query = text("""SELECT user_username
+                    FROM polls WHERE id = :poll_id""")
     owner_result = db.session.execute(check_owner_query, {"poll_id": poll_id})
     owner_username = owner_result.fetchone()
 

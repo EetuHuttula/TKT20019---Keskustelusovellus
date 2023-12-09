@@ -3,7 +3,7 @@ app.py is used to lauch the application
 """
 from os import getenv
 from flask import Flask
-from src.secrets import generate_csrf_token
+from src.secrets_token import generate_csrf_token
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = getenv("SECRET_KEY")

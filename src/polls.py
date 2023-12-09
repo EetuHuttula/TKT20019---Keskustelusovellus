@@ -5,7 +5,7 @@ from sqlalchemy import text
 from app import app
 from db import db
 from src import delete_polls
-from src import secrets
+from src import secrets_token
 
 @app.route("/polls", methods=["GET", "POST"])
 def polls():
@@ -60,7 +60,7 @@ def create():
             VALUES (:poll_id, :choice)"""
         )
         db.session.execute(insert_choice_query, {"poll_id": poll_id, "choice": choice})
-        
+
     db.session.commit()
     if request.method == "POST":
         csrf_token = request.form.get("csrf_token")

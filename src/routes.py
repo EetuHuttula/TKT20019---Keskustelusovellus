@@ -4,7 +4,7 @@ from flask import redirect, render_template, request, session, url_for, flash
 from sqlalchemy import text
 from app import app
 from db import db
-from src.secrets import generate_csrf_token
+from src.secrets_token import generate_csrf_token
 
 @app.route("/", methods=["GET", "POST"])
 def index():
