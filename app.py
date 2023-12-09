@@ -10,7 +10,7 @@ app.config["SECRET_KEY"] = getenv("SECRET_KEY")
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
 #importing modules
 from src import routes
-from src import users
+from src import user_login
 from src import thread
 from src import like
 from src import profile_routes

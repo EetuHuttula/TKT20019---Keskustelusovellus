@@ -1,5 +1,6 @@
-from flask import session
 import secrets
+from flask import session
+
 
 def generate_csrf_token():
     if 'csrf_token' not in session:
