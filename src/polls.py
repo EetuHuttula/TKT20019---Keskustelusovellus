@@ -5,6 +5,7 @@ from sqlalchemy import text
 from app import app
 from db import db
 from src import delete_polls
+from src import secrets
 
 @app.route("/polls", methods=["GET", "POST"])
 def polls():
@@ -61,6 +62,12 @@ def create():
         db.session.execute(insert_choice_query, {"poll_id": poll_id, "choice": choice})
         
     db.session.commit()
+    if request.method == "POST":
+        csrf_token = request.form.get("csrf_token")
+        if csrf_token != session.get("csrf_token"):
+            flash("Invalid CSRF token. Please try again.")
+            return render_template("polls.html")
+
     return redirect("/polls")
 
 

@@ -15,7 +15,7 @@
     <input class="form-input" type="text" name="choice4"></p>
 
     <input class="form-submit" type="submit" value="create poll">
-
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <ul class="flashes">
