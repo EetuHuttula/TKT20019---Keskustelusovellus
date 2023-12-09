@@ -4,6 +4,7 @@ from flask import redirect, render_template, request, session, url_for
 from sqlalchemy import text
 from app import app
 from db import db
+from src.secrets import generate_csrf_token
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -17,8 +18,19 @@ def index():
     threads = result.fetchall()
     return render_template('frontpage.html', threads=threads)
 
+
 def newthread():
     if request.method == "POST":
+        csrf_token = request.form.get("csrf_token")
+
+        if not csrf_token:
+            flash("CSRF token is missing. Please try again.")
+            return redirect(url_for("index"))  # Redirect to the appropriate page
+
+        if csrf_token != session.get("csrf_token"):
+            flash("Invalid CSRF token. Please try again.")
+            return redirect(url_for("index"))
+
         title = request.form["title"]
         content = request.form["content"]
         username = session.get("username")
@@ -29,11 +41,5 @@ def newthread():
         thread = thread(title=title, content=content, user_username=username)
         db.session.add(thread)
         db.session.commit()
-
-        if "csrf_token" not in session or session["csrf_token"] != request.form["csrf_token"]:
-            abort(403)
-
-
-        del session["csrf_token"]
-
+    csrf_token = generate_csrf_token()
     return redirect(url_for("index"))
