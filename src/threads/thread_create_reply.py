@@ -28,6 +28,10 @@ def view_thread(thread_id):
             # Redirect to login or handle the case where the user is not logged in
             return redirect('/login')
 
+        if not content or not content.strip():
+            flash("Message can't be empty or contain only whitespace. Please try again.")
+            return redirect(url_for('view_thread', thread_id=thread_id))
+
         # Insert the reply into the posts table using direct SQL query
         query_insert_post = text("""INSERT INTO posts (content, user_username, thread_id)
         VALUES (:content, :username, :thread_id)""")
@@ -46,7 +50,7 @@ def send():
     if not csrf_token:
         flash("CSRF token is missing. Please try again.")
         return redirect(url_for("index"))
-    
+
     title = request.form["title"]
     content = request.form["content"]
     username = session.get("username")
@@ -54,7 +58,7 @@ def send():
     if not username:
         # Redirect to the login page or handle the case where the user is not logged in
         return redirect("/login")
-    
+
     if not title or not title.strip() or not content or not content.strip():
         flash("Title or message can't be empty or contain only whitespace. Please try again.")
         return redirect(url_for("index"))
@@ -67,4 +71,4 @@ def send():
     db.session.commit()
 
     csrf_token = generate_csrf_token()
-    return redirect("/", csrf_token=csrf_token)
+    return redirect('/', csrf_token=csrf_token)
