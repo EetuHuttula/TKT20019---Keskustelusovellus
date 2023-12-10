@@ -5,7 +5,7 @@ from sqlalchemy import text
 from db import db
 from app import app
 from src import secrets_token
-import re
+from src.auth.validate_registeration import validate_registration
 
 # REGISTER function
 @app.route("/register", methods=["GET", "POST"])
@@ -19,37 +19,14 @@ def register():
         username = request.form.get("username")
         password = request.form.get("password")
 
-        if not username.strip():
-            flash("Username cannot be empty. Please try again.")
+            
+        validation_errors = validate_registration(username, password)
+
+        if validation_errors:
+            for error in validation_errors:
+                flash(error)
             return render_template('register.html', username=username)
 
-        if not password:
-            flash("Please provide a password.")
-            return render_template('register.html', username=username)
-
-        if not username or not password:
-            flash("Please provide both username and password")
-            return render_template('register.html', username=username)
-
-        if len(password) < 8:
-            flash("Password must be at least 8 characters long.")
-            return render_template('register.html', username=username)
-
-        if not re.search("[a-zA-Z]", password):
-            flash("Password must contain at least one letter.")
-            return render_template('register.html', username=username)
-
-        if not re.search("[0-9]", password):
-            flash("Password must contain at least one digit.")
-            return render_template('register.html', username=username)
-
-        if not re.search("[!@#$%^&*(),.?\":{}|<>]", password):
-            flash("Password must contain at least one special character.")
-            return render_template('register.html', username=username)
-
-        if ' ' in password:
-            flash("Password cannot contain whitespaces.")
-            return render_template('register.html', username=username)
 
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
@@ -69,7 +46,7 @@ def register():
 
         except Exception as e:
             db.session.rollback()
-            flash("Username already taken, please try again")
+            flash("Username already taken, please try again.", e)
             return render_template('register.html', username=username)
         finally:
             db.session.close()

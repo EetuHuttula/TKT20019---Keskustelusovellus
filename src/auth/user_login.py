@@ -6,7 +6,6 @@ from sqlalchemy import text
 from db import db
 from app import app
 from src import secrets_token
-from src import user_register
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

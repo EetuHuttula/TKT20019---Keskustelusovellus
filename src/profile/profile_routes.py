@@ -2,7 +2,7 @@
 like getting post count, thread count and user data."""
 from flask import redirect, render_template, session
 from app import app
-from src.profile_context import (
+from src.profile.profile_context import (
     get_user_info,
     get_thread_count,
     get_like_count,

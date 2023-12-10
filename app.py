@@ -9,13 +9,10 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = getenv("SECRET_KEY")
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
 #importing modules
-from src import routes
-from src import user_login
-from src import thread
-from src import like
-from src import profile_routes
-from src import threadpost
-from src import polls
+from src.auth import user_login
+from src.threads import thread_view, thread_reply, thread_management, thread_like 
+from src.polls import polls_create, polls_delete, polls_view_answer
+from src.profile import profile_routes
 
 if __name__ == '__main__':
     #app updates after changes
