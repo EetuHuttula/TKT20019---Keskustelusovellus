@@ -1,8 +1,9 @@
-"""This module includes functions for posting to specific theards"""
-from flask import redirect, render_template, request, session, url_for
+"""This module includes functions for creating threads and posting to specific theards"""
+from flask import redirect, render_template, request, session, url_for, flash
 from sqlalchemy import text
 from app import app
 from db import db
+from src.secrets_token import generate_csrf_token
 
 @app.route('/thread/<int:thread_id>', methods=['GET', 'POST'])
 def view_thread(thread_id):
@@ -38,6 +39,14 @@ def view_thread(thread_id):
 
 @app.route("/send", methods=["POST"])
 def send():
+
+    if request.method == "POST":
+        csrf_token = request.form.get("csrf_token")
+
+    if not csrf_token:
+        flash("CSRF token is missing. Please try again.")
+        return redirect(url_for("index"))
+    
     title = request.form["title"]
     content = request.form["content"]
     username = session.get("username")
@@ -45,6 +54,10 @@ def send():
     if not username:
         # Redirect to the login page or handle the case where the user is not logged in
         return redirect("/login")
+    
+    if not title or not title.strip() or not content or not content.strip():
+        flash("Title or message can't be empty or contain only whitespace. Please try again.")
+        return redirect(url_for("index"))
 
     # Insert the message into the database with the associated username
     sql = text("""INSERT INTO threads (title, content, user_username)
@@ -53,4 +66,5 @@ def send():
     "content": content, "user_username": username})
     db.session.commit()
 
-    return redirect("/")
+    csrf_token = generate_csrf_token()
+    return redirect("/", csrf_token=csrf_token)
