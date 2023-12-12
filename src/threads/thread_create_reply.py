@@ -69,6 +69,4 @@ def send():
     db.session.execute(sql, {"title": title,
     "content": content, "user_username": username})
     db.session.commit()
-
-    csrf_token = generate_csrf_token()
-    return redirect('/', csrf_token=csrf_token)
+    return redirect('/')

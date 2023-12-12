@@ -1,73 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Porinanurkka</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-..." crossorigin="anonymous" />
-</head>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/components.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha256-..."
+      crossorigin="anonymous"
+    />
+  </head>
 
-<body>
+  <body>
     {% include 'components/navbar.html' %}
 
     <div class="container">
+      {% include 'components/newthread.html' %}
+      <hr />
+      <div id="threadBox">
+        {% for thread in threads %}
+        <div class="smallerThreadBox">
+          <!-- Title and Like Counter at the Top -->
+          <div class="threadHeader">
+            <h3>
+              {{ thread.title }} <i class="fas fa-thumbs-up"></i>{{
+              thread.like_count }}
+            </h3>
+            <hr />
+          </div>
 
-        {% include 'components/newthread.html' %}
-        <hr />
-        <div id="threadBox">
-            {% for thread in threads %}
-            <div class="smallerThreadBox">
-            <!-- Title and Like Counter at the Top -->
-            <div class="threadHeader">
-            <h3>{{ thread.title }} <i class="fas fa-thumbs-up"></i>{{ thread.like_count }}</h3>
-              <hr/>
-            </div>
+          <!-- Line Separator -->
 
-            <!-- Line Separator -->
-          
-
-            <!-- Message in the Middle -->
-            <div class="threadContent">
+          <!-- Message in the Middle -->
+          <div class="threadContent">
             <p>{{ thread.content }}</p>
             <p>created by {{ thread.user_username }}</p>
             <hr />
             <p>Time: {{ thread.creation_date }}</p>
-            </div>
+          </div>
 
-            <!-- Buttons for Liking & Replying at the Bottom -->
-            <div class="threadFooter">
-            <form method="POST" action="{{ url_for('like', thread_id=thread.id) }}">
-                <button class="like_button" type="submit"><i class="fas fa-thumbs-up"></i> Like</button>
-            </form> 
-            <a href="{{ url_for('view_thread', thread_id=thread.id) }}"><i class="fas fa-reply"></i> Reply</a>
+          <!-- Buttons for Liking & Replying at the Bottom -->
+          <div class="threadFooter">
+            <form
+              method="POST"
+              action="{{ url_for('like', thread_id=thread.id) }}"
+            >
+              <button class="like_button" type="submit">
+                <i class="fas fa-thumbs-up"></i> Like
+              </button>
+            </form>
+            <a href="{{ url_for('view_thread', thread_id=thread.id) }}"
+              ><i class="fas fa-reply"></i> Reply</a
+            >
 
             {% if session['username'] == thread.user_username %}
-            <a href="{{ url_for('edit_thread', thread_id=thread.id) }}"><i class="fas fa-edit"></i> Edit</a>
-            <a href="{{ url_for('delete_thread', thread_id=thread.id) }}"><i class="fas fa-trash-alt"></i> Delete</a>
+            <a href="{{ url_for('edit_thread', thread_id=thread.id) }}"
+              ><i class="fas fa-edit"></i> Edit</a
+            >
+            <a href="{{ url_for('delete_thread', thread_id=thread.id) }}"
+              ><i class="fas fa-trash-alt"></i> Delete</a
+            >
             {% endif %}
-            </div>
-            </div>
-            <!-- End of Thread Box -->
-            {% endfor %}
+          </div>
         </div>
-
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul class="flashes">
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
+        <!-- End of Thread Box -->
+        {% endfor %}
+      </div>
     </div>
 
     {% include 'components/footer.html' %}
-
-
-</body>
-
+  </body>
 </html>

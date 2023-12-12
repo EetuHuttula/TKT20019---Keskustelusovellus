@@ -1,9 +1,22 @@
 <form class="styled-form" action="/send" method="POST">
-    <label class="form-label" for="title">Title:</label>
-    <input class="form-input" type="text" id="title" name="title" required>
+  <label class="form-label" for="title">Title:</label>
+  <input class="form-input" type="text" id="title" name="title" required />
 
-    <label class="form-label" for="content">Message:</label>
-    <textarea class="form-input" id="content" name="content" rows="3" required></textarea>
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <input class="form-submit" type="submit" value="Send">
+  <label class="form-label" for="content">Message:</label>
+  <textarea
+    class="form-input"
+    id="content"
+    name="content"
+    rows="3"
+    required
+  ></textarea>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+  <input class="form-submit" type="submit" value="Send" />
+  {% with messages = get_flashed_messages() %} {% if messages %}
+  <ul class="flashes">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %} {% endwith %}
 </form>
