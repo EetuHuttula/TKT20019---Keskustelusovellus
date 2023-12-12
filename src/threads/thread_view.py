@@ -8,7 +8,7 @@ from db import db
 @app.route("/", methods=["GET", "POST"])
 def index():
     query = text("""
-        SELECT t.*, COUNT(l.id) AS like_count
+        SELECT t.id, t.title, t.content, t.creation_date, t.user_username, COUNT(l.id) AS like_count
         FROM threads t
         LEFT JOIN likes l ON t.id = l.thread_id
         GROUP BY t.id

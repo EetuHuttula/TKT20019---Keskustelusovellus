@@ -14,11 +14,11 @@ def like(thread_id):
 
     # Check if the user has already liked the thread
     query_existing_like = text(
-    """SELECT * FROM likes WHERE
+    """SELECT id, user_username, thread_id FROM likes WHERE
     user_username = :username AND
     thread_id = :thread_id""")
     result_existing_like = db.session.execute(query_existing_like,
-                            {"username": username, "thread_id": thread_id})
+    {"username": username, "thread_id": thread_id})
     existing_like = result_existing_like.fetchone()
 
     if existing_like:
@@ -29,7 +29,10 @@ def like(thread_id):
         """INSERT INTO likes 
         (user_username, thread_id) 
         VALUES (:username, :thread_id)""")
-        db.session.execute(query_new_like, {"username": username, "thread_id": thread_id})
+
+        db.session.execute(query_new_like,
+        {"username": username, "thread_id": thread_id})
+
         db.session.commit()
         flash("You liked the thread!", "success")
     return redirect(url_for("index"))

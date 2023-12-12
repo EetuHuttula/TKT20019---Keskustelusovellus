@@ -9,11 +9,18 @@ from src.secrets_token import generate_csrf_token
 def view_thread(thread_id):
     if request.method == 'GET':
         # Fetch the thread and its posts using direct SQL queries
-        query_thread = text("SELECT * FROM threads WHERE id = :thread_id")
+        query_thread = text(
+        """SELECT id, title, content,
+        creation_date, user_username
+        FROM threads WHERE id = :thread_id"""
+        )
         result_thread = db.session.execute(query_thread, {"thread_id": thread_id})
         selected_thread = result_thread.fetchone()
 
-        query_posts = text("SELECT * FROM posts WHERE thread_id = :thread_id")
+        query_posts = text(
+        """SELECT id, content, post_date,
+        user_username, thread_id FROM posts
+        WHERE thread_id = :thread_id""")
         result_posts = db.session.execute(query_posts, {"thread_id": thread_id})
         posts = result_posts.fetchall()
 
@@ -60,7 +67,8 @@ def send():
         return redirect("/login")
 
     if not title or not title.strip() or not content or not content.strip():
-        flash("Title or message can't be empty or contain only whitespace. Please try again.")
+        flash("""Title or message can't be empty or
+        contain only whitespace. Please try again.""")
         return redirect(url_for("index"))
 
     # Insert the message into the database with the associated username
