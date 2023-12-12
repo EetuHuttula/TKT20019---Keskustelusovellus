@@ -1,46 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-..." crossorigin="anonymous" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/components.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha256-..."
+      crossorigin="anonymous"
+    />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     {% include 'components/navbar.html' %}
     <div class="container" id="poll_container">
-    <div id="threadbox">
-    
+      <div id="threadbox">
         <div class="smallerThreadBox">
-            <div class="threadHeader">
-                 <h3>{{ topic }}</h3>
-            </div>
-            <div class="threadContent">
+          <div class="threadHeader">
+            <h3>{{ topic }}</h3>
+          </div>
+          <div class="threadContent">
             <form action="/answer" method="POST" class="poll-form">
-                {% for choice in choices %}
-                <label class="poll-choice">
-                    <input type="radio" name="answer" value="{{ choice.id }}"> {{ choice.choice }}
-                </label>
-                <br>
-                {% endfor %}
-                <p>
-                    <input type="submit" value="Send" class="submit-button">
-                    <input type="hidden" name="id" value="{{ poll_id }}">
-                </p>
-            </form>
-        </div>
-        
-        <div class="threadFooter">
-            <a href="/polls" class="back-link">Back to Polls</a>
-        </div>
-        </div>
-    </div>
-</div>
-    {% include 'components/footer.html' %}
-</body>
+              {% for choice in choices %}
+              <label class="poll-choice">
+                <input type="radio" name="answer" value="{{ choice.id }}" /> {{
+                choice.choice }}
+              </label>
+              <br />
+              {% endfor %}
+              <p>
+                <input type="submit" value="Send" class="submit-button" />
+                <input type="hidden" name="id" value="{{ poll_id }}" />
+              </p>
 
+              {% with messages = get_flashed_messages() %} {% if messages %}
+              <ul class="flashes">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %} {% endwith %}
+            </form>
+          </div>
+
+          <div class="threadFooter">
+            <a href="/polls" class="back-link">Back to Polls</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'components/footer.html' %}
+  </body>
 </html>

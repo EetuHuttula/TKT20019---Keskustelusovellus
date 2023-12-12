@@ -22,7 +22,6 @@ def poll(poll_id):
 
 @app.route("/answer", methods=["POST"])
 def answer():
-
     username = session.get("username")
 
     if not username:
@@ -30,12 +29,30 @@ def answer():
         return redirect("/login")
 
     poll_id = request.form["id"]
+
+    # Check if the user has already answered the poll
+    previous_answer_query = text("""
+        SELECT 1 FROM answers
+        WHERE poll_id = :poll_id AND user_username = :user_username
+    """)
+    previous_answer = db.session.execute(previous_answer_query,
+    {"poll_id": poll_id, "user_username": username}).fetchone()
+
+    if previous_answer:
+        flash("You have already answered this poll.", "error")
+        return redirect("/poll/" + str(poll_id))
+
     if "answer" in request.form:
         choice_id = request.form["answer"]
-        answer_query = text("""INSERT INTO answers
-        (choice_id, sent_at) VALUES (:choice_id, NOW())""")
-        db.session.execute(answer_query, {"choice_id": choice_id})
+        answer_query = text("""
+            INSERT INTO answers
+            (poll_id, choice_id, user_username, sent_at)
+            VALUES (:poll_id, :choice_id, :user_username, NOW())
+        """)
+        db.session.execute(answer_query, {"poll_id": poll_id,
+        "choice_id": choice_id, "user_username": username})
         db.session.commit()
+
     return redirect("/result/" + str(poll_id))
 
 @app.route("/result/<int:poll_id>")

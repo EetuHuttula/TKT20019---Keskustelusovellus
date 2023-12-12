@@ -47,5 +47,7 @@ CREATE TABLE choices (
 CREATE TABLE answers (
     id SERIAL PRIMARY KEY,
     choice_id INTEGER REFERENCES choices ON DELETE CASCADE,
-    sent_at TIMESTAMP
+    poll_id INTEGER REFERENCES polls ON DELETE CASCADE,
+    sent_at TIMESTAMP,
+    user_username VARCHAR(255) REFERENCES users(username)
 );
