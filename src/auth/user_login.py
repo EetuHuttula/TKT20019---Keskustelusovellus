@@ -18,7 +18,7 @@ def login():
         password = request.form["password"]
         if not username or not password:
             flash("Please provide both username and password")
-            return render_template('login.html')
+            return render_template("login.html")
 
         # Validate username and password
         try:
@@ -48,7 +48,7 @@ def login():
         finally:
             db.session.close()
 
-    return render_template('login.html')
+    return render_template("login.html")
 
 #LOGOUT function
 @app.route("/logout")

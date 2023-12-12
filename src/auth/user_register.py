@@ -19,13 +19,12 @@ def register():
         username = request.form.get("username")
         password = request.form.get("password")
 
-            
         validation_errors = validate_registration(username, password)
 
         if validation_errors:
             for error in validation_errors:
                 flash(error)
-            return render_template('register.html', username=username)
+            return render_template("register.html", username=username)
 
 
         hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
@@ -51,4 +50,4 @@ def register():
         finally:
             db.session.close()
 
-    return render_template('register.html')
+    return render_template("register.html")

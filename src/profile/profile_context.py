@@ -3,7 +3,7 @@ from db import db
 
 # Function to retrieve user information from the database
 def get_user_info(username):
-    query = text("""SELECT id, username, creation_date 
+    query = text("""SELECT id, username, creation_date
     FROM users WHERE username=:username""")
     result = db.session.execute(query, {"username": username})
     user = result.fetchone()
@@ -11,7 +11,7 @@ def get_user_info(username):
 
 # Function to get thread count for a user
 def get_thread_count(username):
-    query = text("""SELECT COUNT(id) 
+    query = text("""SELECT COUNT(id)
     FROM threads WHERE user_username=:username""")
     result = db.session.execute(query, {"username": username})
     thread_count = result.scalar()  # scalar() fetches the count value

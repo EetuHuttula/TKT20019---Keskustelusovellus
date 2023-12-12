@@ -12,8 +12,8 @@ from src.profile.profile_context import (
 
 @app.route("/profile")
 def profile():
-    if 'username' not in session:
-        return redirect('/login')  # Redirect to login if not logged in
+    if "username" not in session:
+        return redirect("/login")  # Redirect to login if not logged in
 
     username = session['username']
     user = get_user_info(username)
@@ -30,14 +30,14 @@ def profile():
 
         poll_count = get_poll_count(user.username)
 
-        return render_template('profile.html',
+        return render_template("profile.html",
             thread_count=thread_count,
             post_count=post_count,
             user=user,
             like_count=like_count,
             poll_count=poll_count
             )
-    return render_template('profile.html',
+    return render_template("profile.html",
         thread_count=0,
         post_count=0,
         user=None,

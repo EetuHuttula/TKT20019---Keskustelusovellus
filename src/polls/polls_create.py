@@ -25,10 +25,10 @@ def create():
 
     topic = request.form["topic"]
     choices = [
-        request.form.get('choice1'),
-        request.form.get('choice2'),
-        request.form.get('choice3'),
-        request.form.get('choice4')
+        request.form.get("choice1"),
+        request.form.get("choice2"),
+        request.form.get("choice3"),
+        request.form.get("choice4")
     ]
 
     # Check if the topic is empty
@@ -62,7 +62,4 @@ def create():
         if csrf_token != session.get("csrf_token"):
             flash("Invalid CSRF token. Please try again.")
             return render_template("polls.html")
-
     return redirect("/polls")
-
-

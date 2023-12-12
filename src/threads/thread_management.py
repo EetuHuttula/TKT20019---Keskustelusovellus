@@ -7,8 +7,8 @@ from db import db
 @app.route("/edit_thread/<int:thread_id>", methods=["GET", "POST"])
 def edit_thread(thread_id):
     # Check if user already has logged in
-    if 'username' not in session:
-        return redirect('/login')
+    if "username" not in session:
+        return redirect("/login")
 
     #get thread from database
     query_thread = text(
@@ -21,9 +21,9 @@ def edit_thread(thread_id):
     #check if the user has made the thread
     if session['username'] != thread.user_username:
         flash("Cant edit another users thread")
-        return redirect(url_for('index'))
+        return redirect(url_for("index"))
 
-    if request.method == 'POST':
+    if request.method == "POST":
         #form handeling
         new_title = request.form['new_title']
         new_content = request.form['new_content']

@@ -16,4 +16,4 @@ def index():
     """)
     result = db.session.execute(query)
     threads = result.fetchall()
-    return render_template('frontpage.html', threads=threads)
+    return render_template("frontpage.html", threads=threads)

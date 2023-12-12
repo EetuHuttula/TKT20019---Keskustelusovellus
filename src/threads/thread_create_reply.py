@@ -3,11 +3,10 @@ from flask import redirect, render_template, request, session, url_for, flash
 from sqlalchemy import text
 from app import app
 from db import db
-from src.secrets_token import generate_csrf_token
 
-@app.route('/thread/<int:thread_id>', methods=['GET', 'POST'])
+@app.route("/thread/<int:thread_id>", methods=["GET", "POST"])
 def view_thread(thread_id):
-    if request.method == 'GET':
+    if request.method == "GET":
         # Fetch the thread and its posts using direct SQL queries
         query_thread = text(
         """SELECT id, title, content,
@@ -24,20 +23,20 @@ def view_thread(thread_id):
         result_posts = db.session.execute(query_posts, {"thread_id": thread_id})
         posts = result_posts.fetchall()
 
-        return render_template('view_thread.html', thread=selected_thread, posts=posts)
+        return render_template("view_thread.html", thread=selected_thread, posts=posts)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         # Handle the form submission for posting a reply
-        content = request.form['content']
-        username = session.get('username')
+        content = request.form["content"]
+        username = session.get("username")
 
         if not username:
             # Redirect to login or handle the case where the user is not logged in
-            return redirect('/login')
+            return redirect("/login")
 
         if not content or not content.strip():
             flash("Message can't be empty or contain only whitespace. Please try again.")
-            return redirect(url_for('view_thread', thread_id=thread_id))
+            return redirect(url_for("view_thread", thread_id=thread_id))
 
         # Insert the reply into the posts table using direct SQL query
         query_insert_post = text("""INSERT INTO posts (content, user_username, thread_id)
@@ -45,7 +44,7 @@ def view_thread(thread_id):
         db.session.execute(query_insert_post, {"content": content,
         "username": username, "thread_id": thread_id})
         db.session.commit()
-        return redirect(url_for('view_thread', thread_id=thread_id))
+        return redirect(url_for("view_thread", thread_id=thread_id))
     return None
 
 @app.route("/send", methods=["POST"])
@@ -77,4 +76,4 @@ def send():
     db.session.execute(sql, {"title": title,
     "content": content, "user_username": username})
     db.session.commit()
-    return redirect('/')
+    return redirect("/")
