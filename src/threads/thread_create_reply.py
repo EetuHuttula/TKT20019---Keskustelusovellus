@@ -38,6 +38,12 @@ def view_thread(thread_id):
             flash("Message can't be empty or contain only whitespace. Please try again.")
             return redirect(url_for("view_thread", thread_id=thread_id))
 
+    if request.method == "POST":
+        csrf_token = request.form.get("csrf_token")
+        if csrf_token != session.get("csrf_token"):
+            flash("Invalid CSRF token. Please try again.")
+            return redirect(url_for("index"))
+
         # Insert the reply into the posts table using direct SQL query
         query_insert_post = text("""INSERT INTO posts (content, user_username, thread_id)
         VALUES (:content, :username, :thread_id)""")
@@ -49,13 +55,11 @@ def view_thread(thread_id):
 
 @app.route("/send", methods=["POST"])
 def send():
-
     if request.method == "POST":
         csrf_token = request.form.get("csrf_token")
-
-    if not csrf_token:
-        flash("CSRF token is missing. Please try again.")
-        return redirect(url_for("index"))
+        if csrf_token != session.get("csrf_token"):
+            flash("Invalid CSRF token. Please try again.")
+            return redirect(url_for("index"))
 
     title = request.form["title"]
     content = request.form["content"]
