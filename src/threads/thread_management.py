@@ -10,6 +10,12 @@ def edit_thread(thread_id):
     if "username" not in session:
         return redirect("/login")
 
+    if request.method == "POST":
+        csrf_token = request.form.get("csrf_token")
+        if csrf_token != session.get("csrf_token"):
+            flash("Invalid CSRF token. Please try again.")
+            return redirect(url_for("index"))
+        
     #get thread from database
     query_thread = text(
     """SELECT id, title, content, creation_date,
