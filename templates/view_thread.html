@@ -23,29 +23,10 @@
   <body>
     {% include 'components/navbar.html' %}
     <div class="container">
-      <div id="threadBox">
-        <div class="smallerThreadBox">
-          <div class="threadHeader">
-            <h3>{{ thread.title }}</h3>
-          </div>
-          <div class="threadContent">
-            <p>{{ thread.content }}</p>
-            <h5>Op: {{ thread.user_username }}</h5>
-          </div>
-
-          <h3>Replies:</h3>
-          <div class="threadContent">
-            <div class="replies">
-              {% for post in posts %}
-              <div class="reply">
-                <p>{{ post.content }}</p>
-                <h5>by: {{ post.user_username }}</h5>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-          <h3>Reply to Thread:</h3>
-          <form method="post">
+      <div class="styled-form"> 
+     
+          <form class="reply_inputs" method="post">
+            <h3>Reply to thread</h3>
             <textarea
               class="form-content"
               name="content"
@@ -65,9 +46,31 @@
           </ul>
           {% endif %} {% endwith %}
         </div>
-      </div>
-    </div>
+        
+      <div id="threadBox">
+        <div class="smallerThreadBox_reply">
+          <div class="threadHeader">
+            <h3>{{ thread.title }}</h3>
+          </div>
+          <div class="threadContent">
+            <p>{{ thread.content }}</p>
+            <h5>Op: {{ thread.user_username }}</h5>
+          </div>
 
+          <h3>Replies:</h3>
+          <div class="threadContent">
+            <div class="replies">
+              {% for post in posts %}
+              <div class="reply">
+                <p>{{ post.content }}</p>
+                <h5>by: {{ post.user_username }}</h5>
+              </div>
+              {% endfor %}
+            </div>
+          </div> 
+        </div>
+     </div>
+   </div> 
     {% include 'components/footer.html' %}
   </body>
 </html>

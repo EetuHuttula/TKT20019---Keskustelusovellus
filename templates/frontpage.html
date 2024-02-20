@@ -25,7 +25,6 @@
 
     <div class="container">
       {% include 'components/newthread.html' %}
-      <hr />
       <div id="threadBox">
         {% for thread in threads %}
         <div class="smallerThreadBox">
@@ -35,7 +34,6 @@
               {{ thread.title }} <i class="fas fa-thumbs-up"></i>{{
               thread.like_count }}
             </h3>
-            <hr />
           </div>
 
           <!-- Line Separator -->

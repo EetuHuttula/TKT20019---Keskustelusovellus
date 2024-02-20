@@ -12,7 +12,7 @@
 
 <body>
     {% include 'components/navbar.html' %}
-    <div class="container">
+    <div class="profile">
         <div class="profile_container">
             <div class="profile_content">
                 <h1>User Profile</h1>
@@ -24,18 +24,19 @@
                     <!-- Add other user information fields as needed -->
                 </div>
 
-                <!-- Display User Activity -->
-                <div>
+              
+                {% else %}
+                <p>User not found.</p>
+                {% endif %}
+            </div> 
+             <!-- Display User Activity -->
+                <div class="profile_content">
                     <h3>Activity Information</h3>
                     <p>Threads created: {{ thread_count }}</p>
                     <p>Threads replied: {{ post_count }}</p>
                     <p>Threads liked: {{ like_count }}</p>
                     <p>Polls created: {{ poll_count }}</p>
                 </div>
-                {% else %}
-                <p>User not found.</p>
-                {% endif %}
-            </div>
         </div>
     </div>
     {% include 'components/footer.html' %}
