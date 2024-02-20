@@ -41,6 +41,9 @@
           <!-- Message in the Middle -->
           <div class="threadContent">
             <p>{{ thread.content }}</p>
+            {% if thread.image_path %}
+            <img src="{{ url_for('static', filename='uploads/7b2f091759430784.jpg') }}" alt="Thread Image" style="max-width: 200px;">
+            {% endif %}
             <p>created by {{ thread.user_username }}</p>
             <hr />
             <p>Time: {{ thread.creation_date }}</p>

@@ -7,6 +7,7 @@ from src.secrets_token import generate_csrf_token
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = getenv("SECRET_KEY")
+app.config['UPLOAD_FOLDER'] = 'uploads'
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
 #importing modules
 from src.auth import user_login, user_register

@@ -1,8 +1,10 @@
 """This module includes functions for creating threads and posting to specific theards"""
 from flask import redirect, render_template, request, session, url_for, flash
+from werkzeug.utils import secure_filename
 from sqlalchemy import text
 from app import app
 from db import db
+import os
 
 @app.route("/thread/<int:thread_id>", methods=["GET", "POST"])
 def view_thread(thread_id):
@@ -64,6 +66,15 @@ def send():
     title = request.form["title"]
     content = request.form["content"]
     username = session.get("username")
+    image = request.files.get('image')  # Get the image from request.files
+    image_path = None  # Default to None if no image is uploaded
+
+    if image:
+        # Save the image to the 'uploads' folder
+        filename = secure_filename(image.filename)
+        image_path = os.path.join('static/uploads', filename)
+        image.save(image_path)
+
       # Check if the user is logged in
     if not username:
         # Redirect to the login page or handle the case where the user is not logged in
@@ -75,9 +86,11 @@ def send():
         return redirect(url_for("index"))
 
     # Insert the message into the database with the associated username
-    sql = text("""INSERT INTO threads (title, content, user_username)
-     VALUES (:title, :content, :user_username)""")
+    sql = text("""
+        INSERT INTO threads (title, content, user_username, image_path)
+     VALUES (:title, :content, :user_username, :image_path)""")
+    
     db.session.execute(sql, {"title": title,
-    "content": content, "user_username": username})
+    "content": content, "user_username": username, "image_path": image_path})
     db.session.commit()
     return redirect("/")

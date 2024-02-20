@@ -1,4 +1,4 @@
-<form class="styled-form" action="/send" method="POST">
+<form class="styled-form" action="/send" method="POST" enctype="multipart/form-data">
   <label class="form-label" for="title">Thread title</label>
   <input class="form-input" type="text" id="title" name="title" required />
 
@@ -11,6 +11,7 @@
     required
   ></textarea>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+  <input type="file" class="form-input" id="image" name="image"><br>
   <input class="form-submit " type="submit" value="Send thread" />
   {% with messages = get_flashed_messages() %} {% if messages %}
   <ul class="flashes">
