@@ -4,6 +4,8 @@ from flask import render_template
 from sqlalchemy import text
 from app import app
 from db import db
+import os
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():

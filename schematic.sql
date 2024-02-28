@@ -13,7 +13,8 @@ CREATE TABLE threads (
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     creation_date VARCHAR(16) DEFAULT to_char(CURRENT_TIMESTAMP, 'DD.MM.YY'),
-    user_username VARCHAR(255) REFERENCES users(username) ON DELETE CASCADE NOT NULL
+    user_username VARCHAR(255) REFERENCES users(username) ON DELETE CASCADE NOT NULL,
+    image_path TEXT 
 );
 
 

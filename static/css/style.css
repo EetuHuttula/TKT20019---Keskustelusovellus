@@ -32,9 +32,9 @@ body {
 
 .smallerThreadBox {
     width: 300px;
-    height: 300px;
+    height: 400px;
+    box-sizing: border-box;
     margin: 15px;
-    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
     text-align: center;
@@ -42,7 +42,26 @@ body {
     display: flex;
     flex-direction: column;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
+
+.image-container {
+    max-width: 280px; /* Set width to fill the container */
+    height: 200px; /* Adjust height as needed */
+    overflow: hidden; /* Hide overflowing content */
+    padding: 8px;
+    background-color: #33333309; /* Background color */
+    display: flex;
+    justify-content: center;
+}
+
+.thread_image {
+    width: 100%; /* Ensure the image fills its container */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px;
+    object-fit:inherit;
+}
+
 
 .smallerThreadBox_reply { 
     width: 80em;
@@ -64,10 +83,22 @@ body {
     padding: 10px;
     border-radius: 4px;
     color: white;
+    display: flex;
+    justify-content: space-between;
 }
 
 .reply {
     border: 1px solid #ccc;
+}
+
+.threadContent {
+    padding: 15px;
+}
+
+.threadInfo {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
 }
 .threadContent,
 .threadFooter {

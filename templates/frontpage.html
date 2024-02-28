@@ -35,18 +35,23 @@
               thread.like_count }}
             </h3>
           </div>
-
+           {% if thread.image_path %}
+            <div class="image-container">
+            <img src="{{ thread.image_path }}" alt="Thread Image" class="thread_image">
+          </div>
+          {% else %}
+            <div class="image-container">
+              <img src="placeholder.jpg" alt="Image not provided" class="thread_image">
+            </div>
+          {% endif %}
           <!-- Line Separator -->
-
           <!-- Message in the Middle -->
           <div class="threadContent">
             <p>{{ thread.content }}</p>
-            {% if thread.image_path %}
-            <img src="{{ url_for('static', filename='uploads/7b2f091759430784.jpg') }}" alt="Thread Image" style="max-width: 200px;">
-            {% endif %}
-            <p>created by {{ thread.user_username }}</p>
-            <hr />
-            <p>Time: {{ thread.creation_date }}</p>
+            <div class="threadInfo">
+            <p>By {{ thread.user_username }}</p>
+            <p>At {{ thread.creation_date }}</p>
+            </div>
           </div>
 
           <!-- Buttons for Liking & Replying at the Bottom -->

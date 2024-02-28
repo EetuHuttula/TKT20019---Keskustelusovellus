@@ -70,10 +70,10 @@ def send():
     image_path = None  # Default to None if no image is uploaded
 
     if image:
-        # Save the image to the 'uploads' folder
-        filename = secure_filename(image.filename)
-        image_path = os.path.join('static/uploads', filename)
-        image.save(image_path)
+            # Save the image to the 'uploads' folder
+            filename = secure_filename(image.filename)
+            image_path = os.path.join('static/uploads', filename)
+            image.save(image_path)
 
       # Check if the user is logged in
     if not username:
