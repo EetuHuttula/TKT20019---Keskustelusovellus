@@ -11,9 +11,6 @@ body {
     display: flex;
     flex: 1;
 }
-.porina-nurkka {
-    color: white;
-}
 
 .poll-choice {
     display: block;
