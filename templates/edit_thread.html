@@ -33,9 +33,18 @@
 
     <!-- edit_thread.html -->
     <div class="container">
-    
+        
     <form class="styled-form" action="{{ url_for('edit_thread', thread_id=thread.id) }}" method="POST">
      <h3>Edit Thread</h3> 
+     {% if thread.image_path %}
+        <div class="image-container_reply">
+        <img src="/{{ thread.image_path }}" alt="Thread Image" class="thread_image_reply">
+        </div>
+    {% else %}
+        <div class="image-container_reply">
+            <img src="{{ url_for('static', filename='uploads/placeholder.jpg') }}" alt="Image not provided" class="thread_image_reply">
+        </div>
+    {% endif %}
         <label class="form-label" for="new_title">New Title:</label>
         <input class="form-input" type="text" name="new_title" value="{{ thread.title }}" required>
         <br>
@@ -45,7 +54,7 @@
         <input class="form-submit" type="submit" value="Save Changes">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     </form>
-</div>
+    </div>
 
     {% include 'components/footer.html' %}
 </body>

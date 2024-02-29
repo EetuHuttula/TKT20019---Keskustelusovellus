@@ -19,7 +19,7 @@ def edit_thread(thread_id):
     #get thread from database
     query_thread = text(
     """SELECT id, title, content, creation_date,
-    user_username FROM threads
+    user_username, image_path FROM threads
     WHERE id = :thread_id""")
     result_thread = db.session.execute(query_thread, {"thread_id": thread_id})
     thread = result_thread.fetchone()
