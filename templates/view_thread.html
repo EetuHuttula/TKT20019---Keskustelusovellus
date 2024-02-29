@@ -57,30 +57,35 @@
         
       <div id="threadBox">
         <div class="smallerThreadBox_reply">
-          <div class="threadHeader">
-            <h3>{{ thread.title }}</h3>
+          <div class="threadHeader_reply">
+            <h3>{{ thread.title }} {{
+              thread.like_count }}</h3>
           </div>
           {% if thread.image_path %}
-              <div class="image-container">
-                <img src="/{{ thread.image_path }}" alt="Thread Image" class="thread_image">
+              <div class="image-container_reply">
+                <img src="/{{ thread.image_path }}" alt="Thread Image" class="thread_image_reply">
               </div>
           {% else %}
-              <div class="image-container">
-                  <img src="{{ url_for('static', filename='uploads/placeholder.jpg') }}" alt="Image not provided" class="thread_image">
+              <div class="image-container_reply">
+                  <img src="{{ url_for('static', filename='uploads/placeholder.jpg') }}" alt="Image not provided" class="thread_image_reply">
               </div>
           {% endif %}
           <div class="threadContent">
             <p>{{ thread.content }}</p>
-            <h5>Op: {{ thread.user_username }}</h5>
+            <h5>Post by: {{ thread.user_username }}</h5>
           </div>
 
           <h3>Replies:</h3>
-          <div class="threadContent">
+          <div class="threadContent_replies">
             <div class="replies">
               {% for post in posts %}
               <div class="reply">
+                <div class="post_info">
+                  <p class="info_item">{{ post.id }} &bull; </p>
+                  <p class="info_item">{{ post.post_date }} &bull;</p>
+                  <p class="info_item">by {{ post.user_username }}</p>
+                </div>
                 <p>{{ post.content }}</p>
-                <h5>by: {{ post.user_username }}</h5>
               </div>
               {% endfor %}
             </div>

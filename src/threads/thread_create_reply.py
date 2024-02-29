@@ -11,9 +11,14 @@ def view_thread(thread_id):
     if request.method == "GET":
         # Fetch the thread and its posts using direct SQL queries
         query_thread = text(
-        """SELECT id, title, content,
-        creation_date, user_username
-        FROM threads WHERE id = :thread_id"""
+        """SELECT t.id, t.title, t.content,
+            t.creation_date, t.user_username, t.image_path,
+            COUNT(l.id) AS like_count
+            FROM threads t
+            LEFT JOIN likes l ON t.id = l.thread_id
+            WHERE t.id = :thread_id
+            GROUP BY t.id;
+        """
         )
         result_thread = db.session.execute(query_thread, {"thread_id": thread_id})
         selected_thread = result_thread.fetchone()
