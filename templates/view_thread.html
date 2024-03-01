@@ -64,10 +64,12 @@
           {% if thread.media_path %}
           {% if thread.media_path|length == 1 %}
             {% set media_path = thread.media_path[0] %}
-            {% if media_path.endswith('.mp4') %}
+            {% if media_path.endswith('.mp4') or media_path.endswith('.gif') or media_path.endswith('.webm') %}
               <div class="media-container_reply">
                 <video controls class="thread_media_reply">
                   <source src="/{{ media_path }}" type="video/mp4">
+                  <source src="/{{ media_path }}" type="image/gif">
+                  <source src="/{{ media_path }}" type="video/webm">
                   Your browser does not support the video tag.
                 </video>
               </div>
