@@ -60,7 +60,7 @@
               {% endif %}
             {% else %}
               <div class="media-container">
-                <img src="placeholder.jpg" alt="Image or video not provided" class="thread_media">
+                <img src="{{ url_for('static', filename='placeholder.jpg') }}" alt="Image or video not provided" class="thread_media">
               </div>
             {% endif %}
           {% endif %}
