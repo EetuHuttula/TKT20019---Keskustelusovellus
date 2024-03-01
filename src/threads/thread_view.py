@@ -16,12 +16,13 @@ def index():
         t.content, 
         t.creation_date,
         t.user_username,
-        t.image_path, 
+        t.media_path,
         COUNT(l.id) AS like_count
         FROM threads t
         LEFT JOIN likes l ON t.id = l.thread_id
         GROUP BY t.id
     """)
+    
     result = db.session.execute(query)
     threads = result.fetchall()
     return render_template("frontpage.html", threads=threads)

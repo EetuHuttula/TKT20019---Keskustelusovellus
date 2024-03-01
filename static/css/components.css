@@ -1,6 +1,6 @@
 .footer {
     text-align: center;
-    background-color: #333;
+    background-color: #194666;
     color: white;
 }
 
@@ -43,7 +43,7 @@ span {
 
 /* Style for the navbar */
 .navbar {
-    background-color: #333; /* Setting background color */
+    background-color: #194666; /* Setting background color */
     color: #fff; /* Setting text color */
     padding: 10px; /* Adding padding */
     display: flex; /* Using flexbox for layout */

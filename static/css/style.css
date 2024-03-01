@@ -5,6 +5,10 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #f4f4f4; /* Light gray background for the body */
+    background: linear-gradient(-45deg, transparent 25%, rgba(0, 0, 0, 0.055) 25%, rgba(0, 0, 0, 0.055) 50%, transparent 50%, transparent 75%, rgba(0, 0, 0, 0.055) 75%, rgba(0, 0, 0, 0.055));
+    background-size: 5px 5px; /* Adjust the size of the diagonal lines */
+    z-index: -1;
+
 }
 
 .container {

@@ -18,7 +18,7 @@
     position: relative;
 }
 
-.image-container {
+.media-container {
     max-width: 280px; /* Set width to fill the container */
     height: 200px; /* Adjust height as needed */
     overflow: hidden; /* Hide overflowing content */
@@ -28,7 +28,7 @@
     justify-content: center;
 }
 
-.thread_image {
+.thread_media {
     width: 100%; /* Ensure the image fills its container */
     height: auto; /* Maintain aspect ratio */
     border-radius: 5px;

@@ -43,15 +43,28 @@
               thread.like_count }}
             </h3>
           </div>
-           {% if thread.image_path %}
-            <div class="image-container">
-            <img src="{{ thread.image_path }}" alt="Thread Image" class="thread_image">
-          </div>
-          {% else %}
-            <div class="image-container">
-              <img src="placeholder.jpg" alt="Image not provided" class="thread_image">
-            </div>
+          {% if thread.media_path %}
+            {% if thread.media_path|length == 1 %}
+              {% set media_path = thread.media_path[0] %}
+              {% if media_path.endswith('.mp4') %}
+                <div class="media-container">
+                  <video class="thread_media">
+                    <source src="{{ media_path }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              {% else %}
+                <div class="media-container">
+                  <img src="{{ media_path }}" alt="Thread Image" class="thread_media">
+                </div>
+              {% endif %}
+            {% else %}
+              <div class="media-container">
+                <img src="placeholder.jpg" alt="Image or video not provided" class="thread_media">
+              </div>
+            {% endif %}
           {% endif %}
+
           <!-- Line Separator -->
           <!-- Message in the Middle -->
           <div class="threadContent">
