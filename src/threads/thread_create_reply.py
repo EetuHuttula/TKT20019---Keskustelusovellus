@@ -12,7 +12,7 @@ def view_thread(thread_id):
         # Fetch the thread and its posts using direct SQL queries
         query_thread = text(
         """SELECT t.id, t.title, t.content,
-            t.creation_date, t.user_username, t.image_path,
+            t.creation_date, t.user_username, t.media_path,
             COUNT(l.id) AS like_count
             FROM threads t
             LEFT JOIN likes l ON t.id = l.thread_id

@@ -61,15 +61,27 @@
             <h3>{{ thread.title }} {{
               thread.like_count }}</h3>
           </div>
-          {% if thread.image_path %}
-              <div class="image-container_reply">
-                <img src="/{{ thread.image_path }}" alt="Thread Image" class="thread_image_reply">
+          {% if thread.media_path %}
+          {% if thread.media_path|length == 1 %}
+            {% set media_path = thread.media_path[0] %}
+            {% if media_path.endswith('.mp4') %}
+              <div class="media-container_reply">
+                <video controls class="thread_media_reply">
+                  <source src="/{{ media_path }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
               </div>
+            {% else %}
+              <div class="media-container_reply">
+                <img src="/{{ media_path }}" alt="Thread Image" class="thread_media_reply">
+              </div>
+            {% endif %}
           {% else %}
-              <div class="image-container_reply">
-                  <img src="{{ url_for('static', filename='uploads/placeholder.jpg') }}" alt="Image not provided" class="thread_image_reply">
-              </div>
+            <div class="media-container_reply">
+              <img src="placeholder.jpg" alt="Image or video not provided" class="thread_media_reply">
+            </div>
           {% endif %}
+        {% endif %}
           <div class="threadContent">
             <p>{{ thread.content }}</p>
             <h5>Post by: {{ thread.user_username }}</h5>

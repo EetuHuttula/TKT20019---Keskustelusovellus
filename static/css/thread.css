@@ -35,7 +35,7 @@
     object-fit:inherit;
 }
 
-.image-container_reply {
+.media-container_reply {
     overflow: hidden; /* Hide overflowing content */
     background-color: #33333309; /* Background color */
     display: flex;
@@ -44,7 +44,7 @@
     height: 30%;
 }
 
-.thread_image_reply {
+.thread_media_reply {
     width: auto; /* Ensure the image fills its container */
     height: auto; /* Maintain aspect ratio */
     border-radius: 5px;
