@@ -89,11 +89,6 @@
 .reply {
     border: 1px solid #ccc;
 }
-
-.threadContent {
-    padding: 15px;
-}
-
 .threadInfo {
     display: flex;
     justify-content: space-around;
