@@ -2,7 +2,16 @@
     text-align: center;
     background-color: #333;
     color: white;
-    padding: 10px;
+}
+
+.footer a {
+  text-align: center;
+  text-decoration: none;
+  color: white;
+}
+
+.footer a:hover {
+ text-decoration: underline;
 }
 
 span {

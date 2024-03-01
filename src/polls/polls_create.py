@@ -43,8 +43,8 @@ def create():
         return redirect("/polls")
 
     # Insert a new poll into the 'polls' table
-    insert_poll_query = text("""INSERT INTO polls (topic, created_at, user_username)
-                            VALUES (:topic, NOW(), :user_username) RETURNING id""")
+    insert_poll_query = text("""INSERT INTO polls (topic, user_username)
+                            VALUES (:topic, :user_username) RETURNING id""")
     poll_result = db.session.execute(insert_poll_query, {"topic": topic, "user_username": username})
     poll_id = poll_result.fetchone()[0]
 
