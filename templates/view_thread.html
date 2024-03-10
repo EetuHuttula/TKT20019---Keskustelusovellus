@@ -57,6 +57,7 @@
         
       <div id="threadBox">
         <div class="smallerThreadBox_reply">
+          
           <div class="threadHeader_reply">
             <h3>{{ thread.title }} {{
               thread.like_count }}</h3>
@@ -88,7 +89,8 @@
             <p>{{ thread.content }}</p>
             <h5>Post by: {{ thread.user_username }}</h5>
           </div>
-
+          </div> 
+          <div class="smallerThreadBox_reply">
           <h3>Replies:</h3>
           <div class="threadContent_replies">
             <div class="replies">
@@ -105,8 +107,9 @@
             </div>
           </div> 
         </div>
+      </div>
      </div>
-   </div> 
+   
     {% include 'components/footer.html' %}
   </body>
 </html>
