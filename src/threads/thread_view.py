@@ -17,10 +17,12 @@ def index():
         t.creation_date,
         t.user_username,
         t.media_path,
-        COUNT(l.id) AS like_count
+        COUNT(DISTINCT l.id) AS like_count,
+        COUNT(DISTINCT p.id) AS post_count
         FROM threads t
         LEFT JOIN likes l ON t.id = l.thread_id
-        GROUP BY t.id
+        LEFT JOIN posts p ON t.id = p.thread_id
+        GROUP BY t.id, t.title, t.content, t.creation_date, t.user_username, t.media_path
     """)
     
     result = db.session.execute(query)
