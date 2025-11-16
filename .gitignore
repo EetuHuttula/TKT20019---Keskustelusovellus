@@ -3,4 +3,5 @@ venv
 .env
 /static/uploads/*
 !/static/uploads/
+REACT_MIGRATION.md
 
