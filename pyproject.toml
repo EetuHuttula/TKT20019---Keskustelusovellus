@@ -38,3 +38,9 @@ build-backend = "poetry.core.masonry.api"
 dev = [
     "coverage (>=7.11.3,<8.0.0)"
 ]
+
+[tool.pytest.ini_options]
+python_files = ["test_*.py", "*_test.py"]
+testpaths = ["tests"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
