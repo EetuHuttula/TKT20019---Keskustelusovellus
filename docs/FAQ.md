@@ -37,7 +37,7 @@ Samat rajat kuin PostgreSQL-tietokantasi. Testaamme noin 100 samanaikaisen käyt
 ### Kuinka pitkiä viestiketjuja voin luoda?
 Teoriassa rajoitaton, käytännössä riippuu palvelimestasi.
 
-### Voiko minä poistaa oman käyttäjätilini?
+### Voinko minä poistaa oman käyttäjätilini?
 Tämä ominaisuus ei ole vielä toteutettu. Voit ottaa yhteyttä järjestelmänvalvojaan pyynnöllä tilisi poistamiseksi.
 
 ### Kuinka usein sovellusta päivitetään?
@@ -74,22 +74,6 @@ Katso `docs/DEVELOPMENT.md` ja README.md kontribuointiohjeille.
 
 ### Mitä kieliä sovellus tukee?
 Tällä hetkellä pääasiassa suomea. Kansainvälisen tuen lisääminen on tulevassa roadmap:ssa.
-
----
-
-## Deployment
-
-### Kuinka deploy nopeasti?
-Käytä Render-alustaa. Katso `docs/DEPLOYMENT.md`.
-
-### Kuinka voin deployata omalla palvelimellaan?
-Seuraa AWS EC2 -ohjeita `docs/DEPLOYMENT.md`:ssä.
-
-### Mikä on halvin deployment-vaihtoehto?
-Render ilmainen tier tai DigitalOcean $4/kk.
-
-### Kuinka voin konfiguroida omaa domainia?
-Render, Heroku ja muut PaaS-palvelut tarjoavat DNS-konfigurointia konsolissa.
 
 ---
 
