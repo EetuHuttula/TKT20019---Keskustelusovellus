@@ -4,4 +4,7 @@ venv
 /static/uploads/*
 !/static/uploads/
 REACT_MIGRATION.md
-
+log.html
+output.xml
+report.html
+*.log
