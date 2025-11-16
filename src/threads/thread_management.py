@@ -1,6 +1,7 @@
 """This module includes functions for editing threads and deleting them"""
 from flask import redirect, render_template, request, session, url_for, flash
 from sqlalchemy import text
+import json
 from app import app
 from db import db
 
@@ -19,12 +20,37 @@ def edit_thread(thread_id):
     #get thread from database
     query_thread = text(
     """SELECT id, title, content, creation_date,
-    user_username, image_path FROM threads
+    user_username, media_path FROM threads
     WHERE id = :thread_id""")
     result_thread = db.session.execute(query_thread, {"thread_id": thread_id})
     thread = result_thread.fetchone()
 
-    #check if the user has made the thread
+    media_list = None
+    if thread and getattr(thread, 'media_path', None):
+        raw = thread.media_path
+        try:
+            parsed = raw if isinstance(raw, (list, tuple)) else json.loads(raw)
+        except Exception:
+            parsed = []
+
+        normalized = []
+        for p in parsed:
+            if not p:
+                continue
+            s = str(p).lstrip('/')
+            if s.startswith('static/'):
+                s = s[len('static/'):]
+            normalized.append(s)
+
+        if normalized:
+            media_list = normalized
+
+    # thread must exist
+    if not thread:
+        flash("Thread not found.", "error")
+        return redirect(url_for("index"))
+
+    # check if the user has made the thread
     if session['username'] != thread.user_username:
         flash("Cant edit another users thread")
         return redirect(url_for("index"))
@@ -43,7 +69,7 @@ def edit_thread(thread_id):
         #after update, go back to index page
         return redirect(url_for('index', thread_id=thread_id))
     #render the edit.html
-    return render_template('edit_thread.html', thread=thread)
+    return render_template('edit_thread.html', thread=thread, media_list=media_list)
 
 @app.route("/delete_thread/<int:thread_id>", methods=["GET","POST"])
 def delete_thread(thread_id):
