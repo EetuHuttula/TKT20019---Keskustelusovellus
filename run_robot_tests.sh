@@ -22,7 +22,7 @@ echo "Flask server is ready"
 # suoritetaan testit
 # The tests are located under src/story_tests.py (directory named with .py suffix),
 # so point Robot to that path.
-poetry run robot --variable HEADLESS:true src/story_tests.py
+poetry run robot --variable HEADLESS:true src/story_tests
 
 status=$?
 
