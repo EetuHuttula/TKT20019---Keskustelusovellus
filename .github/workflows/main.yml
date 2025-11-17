@@ -38,6 +38,20 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install        
+      - name: Apply DB schema
+        run: |
+          # Install psql client so we can apply the schema from the repo
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+          # Wait for Postgres service to be ready
+          for i in {1..30}; do
+            pg_isready -h localhost -p 5432 && break
+            sleep 1
+          done
+
+          # Apply the schema (DATABASE_URL is set in workflow env)
+          psql "$DATABASE_URL" -f schematic.sql || true
       - name: Run unit tests
         run: poetry run pytest src/tests
       - name: Setup geckodriver

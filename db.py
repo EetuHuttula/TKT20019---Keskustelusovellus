@@ -28,11 +28,24 @@ def init_db(app):
                         # Skip CREATE DATABASE statements and empty statements
                         if statement and not statement.upper().startswith('CREATE DATABASE'):
                             try:
+                                # Execute each statement in its own transaction so a failure
+                                # in one doesn't put the session in an aborted state.
                                 db.session.execute(text(statement))
-                            except Exception as e:
-                                # Table might already exist, continue
-                                pass
-                    db.session.commit()
+                                db.session.commit()
+                            except Exception:
+                                # Roll back this statement's transaction and continue with next.
+                                # Common expected errors are "relation ... already exists" when
+                                # the schema was applied previously.
+                                try:
+                                    db.session.rollback()
+                                except Exception:
+                                    # If rollback itself fails, create a fresh session by
+                                    # closing and reopening (best-effort). Then continue.
+                                    try:
+                                        db.session.close()
+                                    except Exception:
+                                        pass
+                                continue
         except Exception as e:
             # Database might already be initialized or schema file not found
             try:
