@@ -31,14 +31,49 @@
 ## 🚀 Käyttöönotto
 
 ### Vaatimukset
-- Python 3.8+
+- Python 3.10+
 - PostgreSQL
 - Poetry
 - Flask
+- mise (valmiin) / Python 3.10-3.13
 
 ### Asennus ja käynnistys
 
-#### 1. Poetry asentaminen
+#### 1. Mise asentaminen (valinnainen, mutta suositeltu)
+
+`mise` auttaa Pythonin version hallinnassa. Asenna se:
+
+```shell
+curl https://mise.jdx.dev/install.sh | sh
+```
+
+Tai käytä Homebrew (macOS):
+
+```shell
+brew install mise
+```
+
+Lisää mise shell-konfiguraatioosi (`.bashrc`, `.zshrc` tai muuhun):
+
+```shell
+eval "$(mise activate)"
+```
+
+#### 2. Python-version asetus (käyttämällä mise)
+
+Projekti käyttää Python 3.13:ta. Jos sinulla on mise asennettuna, aseta versio:
+
+```shell
+mise use python@3.13
+```
+
+Tämä varmistaa, että käytät oikean Python-version. Voit tarkistaa version:
+
+```shell
+python --version
+```
+
+#### 3. Poetry asentaminen
 
 Jos sinulla ei ole Poetry-työvälinettä asennettu, asenna se:
 
@@ -46,13 +81,13 @@ Jos sinulla ei ole Poetry-työvälinettä asennettu, asenna se:
 curl -sSL https://install.python-poetry.org | python3 -
 ```
 
-Tai käyttäjellä Homebrew (macOS):
+Tai käytä Homebrew (macOS):
 
 ```shell
 brew install poetry
 ```
 
-#### 2. Ympäristömuuttujien asetus
+#### 4. Ympäristömuuttujien asetus
 
 Luo `.env`-tiedosto sovelluksen juurikansioon:
 
@@ -67,7 +102,7 @@ DATABASE_URL="postgresql:///käyttäjänimi"
 SECRET_KEY="salainenavaimen"
 ```
 
-#### 3. Riippuvuuksien asentaminen Poetry:llä
+#### 5. Riippuvuuksien asentaminen Poetry:llä
 
 ```shell
 poetry install
@@ -75,7 +110,7 @@ poetry install
 
 Tämä luo virtuaalisen ympäristön ja asentaa kaikki vaaditut pakettien `pyproject.toml`-tiedostosta.
 
-#### 4. Tietokannan alustaminen
+#### 6. Tietokannan alustaminen
 
 Varmista, että PostgreSQL-palvelin on käynnissä. Luo tietokanta ja aja migraatio:
 
@@ -85,7 +120,7 @@ psql < schematic.sql
 
 **Huom:** Jos komento ei toimi, voit kopioida `schematic.sql`-taulut ja laittaa ne manuaalisesti PostgreSQL-terminaalin kautta.
 
-#### 5. Sovelluksen käynnistäminen
+#### 7. Sovelluksen käynnistäminen
 
 ```shell
 poetry run flask run
@@ -116,6 +151,51 @@ poetry shell
 ```
 
 Nyt voit ajaa komentoja ilman `poetry run` etuliitettä.
+
+---
+
+## 🧪 Testaaminen
+
+Projekti sisältää sekä Python-testit (pytest) että Robot Framework -integraatiotesteistä.
+
+### Python-testit pytest:llä
+
+Kaikki testit:
+```shell
+poetry run pytest
+```
+
+Tietyn testitiedoston testit:
+```shell
+poetry run pytest tests/test_placeholder.py
+```
+
+Yksittäinen testi:
+```shell
+poetry run pytest tests/test_placeholder.py::test_placeholder
+```
+
+### Robot Framework -integraatiotesteistä
+
+Kaikki Robot Framework -testitiedostot (vaatii Selenium WebDriver):
+```shell
+poetry run robot tests
+```
+
+Tietty Robot-testitiedosto:
+```shell
+poetry run robot tests/valid_login.robot
+```
+
+### Testien kattavuus (Coverage)
+
+Testien kattavuus pytest:llä:
+```shell
+poetry run coverage run --branch -m pytest
+poetry run coverage html
+```
+
+Kattavuusraportti luodaan `htmlcov/index.html`-tiedostoon.
 
 ---
 

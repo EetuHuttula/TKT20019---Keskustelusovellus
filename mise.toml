@@ -1,0 +1,4 @@
+[tools]
+python = "3.13"
+
+"run mise ise python@3.13"
