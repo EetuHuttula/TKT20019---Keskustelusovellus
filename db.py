@@ -2,7 +2,7 @@
 from os import getenv
 from pathlib import Path
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import text
+from sqlalchemy import text, inspect
 
 # Initialize SQLAlchemy without an app to avoid circular imports
 db = SQLAlchemy()
@@ -25,7 +25,8 @@ def init_db(app):
                     # Split by semicolon and execute each statement
                     for statement in sql_script.split(';'):
                         statement = statement.strip()
-                        if statement:
+                        # Skip CREATE DATABASE statements and empty statements
+                        if statement and not statement.upper().startswith('CREATE DATABASE'):
                             try:
                                 db.session.execute(text(statement))
                             except Exception as e:
