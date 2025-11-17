@@ -167,7 +167,7 @@ version = "7.11.3"
 description = "Code coverage measurement for Python"
 optional = false
 python-versions = ">=3.10"
-groups = ["main", "dev"]
+groups = ["main"]
 files = [
     {file = "coverage-7.11.3-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:0c986537abca9b064510f3fd104ba33e98d3036608c7f2f5537f869bc10e1ee5"},
     {file = "coverage-7.11.3-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:28c5251b3ab1d23e66f1130ca0c419747edfbcb4690de19467cd616861507af7"},
@@ -1061,4 +1061,4 @@ h11 = ">=0.16.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.14"
-content-hash = "df181ee8c3183a857b1912846716d6718a47b7d92811873070ef4855b3b4b1e3"
+content-hash = "00aedf6d66d97fd771fbd0803a57add47f80b231b7056f2be887a571a9b1109e"
