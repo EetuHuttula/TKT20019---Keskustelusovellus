@@ -4,15 +4,13 @@ import string
 import os
 import sys
 
-# Import db and app inside functions to avoid circular imports
-def get_db_and_app():
-    sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-    from db import db
-    from app import app
-    return db, app
+# Add parent directory to path
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+from db import db
+from app import app
 
 def reset_db():
-  db, app = get_db_and_app()
   print(f"Clearing contents from all tables")
   # Delete in order of foreign key dependencies
   tables_to_clear = ['answers', 'choices', 'polls', 'likes', 'posts', 'threads', 'users']
@@ -25,7 +23,6 @@ def reset_db():
   db.session.commit()
 
 def tables():
-  db, app = get_db_and_app()
   """Returns all table names from the database except those ending with _id_seq"""
   sql = text(
     "SELECT table_name "
@@ -38,7 +35,6 @@ def tables():
   return [row[0] for row in result.fetchall()]
 
 def setup_db():
-  db, app = get_db_and_app()
   """
     Creating the database
     If database tables already exist, those are dropped before the creation
@@ -66,7 +62,6 @@ def setup_db():
   db.session.commit()
 
 def create_test_data(amount: int = 50):
-  db, app = get_db_and_app()
   print("Creating randomized test data.")
   
   # Create test users
@@ -94,7 +89,6 @@ def create_test_data(amount: int = 50):
   print("Data creation complete.")
 
 if __name__ == "__main__":
-  db, app = get_db_and_app()
   with app.app_context():
     if len(sys.argv) > 1 and sys.argv[1] == "testdata":
       create_test_data()

@@ -11,6 +11,11 @@ app = Flask(__name__,
 app.config["SECRET_KEY"] = getenv("SECRET_KEY")
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
+
+# Initialize database
+from db import init_db
+init_db(app)
+
 #importing modules
 
 from src.auth import user_login, user_register
